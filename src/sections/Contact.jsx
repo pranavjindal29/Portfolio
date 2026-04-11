@@ -79,7 +79,7 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="section-shell scroll-mt-24">
+    <section id="contact" className="section-shell scroll-mt-6 lg:scroll-mt-8">
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <div className="absolute bottom-0 left-[12%] h-48 w-48 rounded-full bg-cyan-400/10 blur-3xl dark:bg-sky-300/12" />
       </div>
@@ -91,7 +91,7 @@ export default function Contact() {
           description="If you’re hiring for software, ML, data, or platform work, I’d be happy to connect. The form below now sends directly to my inbox."
         />
 
-        <div className="mt-14 grid items-stretch gap-6 xl:grid-cols-[380px_minmax(0,1fr)]">
+        <div className="mt-12 grid items-stretch gap-6 xl:grid-cols-[380px_minmax(0,1fr)]">
           <Reveal className="h-full">
             <article className="surface-panel flex h-full flex-col p-6 sm:p-7">
               <span className="section-eyebrow">Get In Touch</span>

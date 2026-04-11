@@ -11,7 +11,7 @@ import {
 
 export default function Resume() {
   return (
-    <section id="resume" className="section-shell scroll-mt-24">
+    <section id="resume" className="section-shell scroll-mt-6 lg:scroll-mt-8">
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <div className="absolute right-[8%] top-8 h-44 w-44 rounded-full bg-emerald-400/10 blur-3xl dark:bg-sky-300/10" />
       </div>
@@ -32,7 +32,7 @@ export default function Resume() {
           </Reveal>
         </div>
 
-        <div className="mt-14 grid gap-6 xl:grid-cols-[minmax(0,1.35fr)_380px]">
+        <div className="mt-12 grid gap-6 xl:grid-cols-[minmax(0,1.35fr)_380px]">
           <div className="space-y-5">
             {experience.map((item, index) => (
               <Reveal key={`${item.organization}-${item.title}`} delay={index * 0.06}>

@@ -39,11 +39,11 @@ export default function About() {
   const snapshotItems = [
     {
       label: 'Current role',
-      value: 'Project Research Assistant at IIT Bombay',
+      value: 'Research Assistant, IIT Bombay',
     },
     {
       label: 'Core focus',
-      value: 'Software engineering, ML systems, and data-heavy products',
+      value: 'Software engineering, ML systems, product-facing execution',
     },
     {
       label: 'Location',
@@ -56,6 +56,12 @@ export default function About() {
   ];
   const recentEnvironments = ['IIT Bombay', 'IIT Roorkee', 'DRDO', 'SVGS IT'];
   const overviewTags = ['Software', 'ML Systems', 'Research'];
+  const aboutAvailability = 'Open to frontend, software, ML, data, and platform roles.';
+  const compactFocusCopy = [
+    'Architecture-first thinking with attention to product details.',
+    'Hands-on from training and evaluation through deployment choices.',
+    'Clear communication, dependable execution, and polished delivery.',
+  ];
 
   const totalSkills = techStack.reduce((count, group) => count + group.skills.length, 0);
 
@@ -94,20 +100,20 @@ export default function About() {
   }, []);
 
   return (
-    <section id="about" className="section-shell scroll-mt-24">
+    <section id="about" className="section-shell scroll-mt-6 lg:scroll-mt-8">
       <div className="content-container">
         <SectionHeading
           eyebrow="About"
           title="Engineering with depth, polish, and a strong bias for clarity."
-          description="I like building products that feel considered from both sides: rigorous systems underneath and clean experience on the surface."
+          description="I like building products that balance rigorous systems underneath with clean, considered execution on the surface."
         />
 
-        <div className="mt-14 grid items-stretch gap-8 xl:grid-cols-[minmax(0,1.08fr)_360px]">
+        <div className="mt-12 grid items-stretch gap-6 xl:grid-cols-[minmax(0,1.05fr)_340px]">
           <Reveal className="surface-panel h-full overflow-hidden p-0">
             <div className="relative h-full p-6 sm:p-8">
-              <div className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-[radial-gradient(circle_at_top_left,rgba(37,99,235,0.18),transparent_60%)]" />
+              <div className="pointer-events-none absolute inset-x-0 top-0 h-36 bg-[linear-gradient(180deg,rgba(37,99,235,0.14),rgba(37,99,235,0.04),transparent)]" />
 
-              <div className="relative flex h-full flex-col">
+              <div className="relative flex h-full flex-col gap-6">
                 <div className="flex flex-wrap items-center justify-between gap-3">
                   <span className="section-eyebrow">Overview</span>
                   <div className="flex flex-wrap gap-2">
@@ -122,12 +128,12 @@ export default function About() {
                   </div>
                 </div>
 
-                <div className="mt-8 grid gap-6 lg:grid-cols-[minmax(0,1fr)_250px] lg:items-start">
+                <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_220px] lg:items-start">
                   <div>
-                    <h3 className="max-w-3xl text-3xl font-semibold tracking-tight text-[var(--text)] sm:text-[2.6rem] sm:leading-[1.05]">
-                      I like making technically hard work feel clear, usable, and dependable.
+                    <h3 className="max-w-3xl text-3xl font-semibold tracking-tight text-[var(--text)] sm:text-[2.45rem] sm:leading-[1.08]">
+                      I like turning technically dense work into products that feel clean, usable, and dependable.
                     </h3>
-                    <p className="mt-5 max-w-2xl text-base leading-8 text-[var(--muted)] sm:text-lg">
+                    <p className="mt-4 max-w-2xl text-base leading-8 text-[var(--muted)] sm:text-lg">
                       {aboutParagraphs[0]}
                     </p>
                   </div>
@@ -144,14 +150,7 @@ export default function About() {
                   </div>
                 </div>
 
-                <div className="mt-7 rounded-[24px] border border-[var(--surface-border)] bg-[var(--surface-strong)] p-5">
-                  <p className="meta-label">How I Approach Work</p>
-                  <p className="mt-3 max-w-3xl text-sm leading-7 text-[var(--muted)] sm:text-base">
-                    {aboutParagraphs[2]}
-                  </p>
-                </div>
-
-                <div className="mt-8 grid gap-4 md:grid-cols-3">
+                <div className="grid gap-4 md:grid-cols-3">
                   {focusAreas.map((area, index) => {
                     const FocusIcon = focusIcons[index];
 
@@ -164,7 +163,7 @@ export default function About() {
                           <FocusIcon size={18} />
                         </span>
                         <h3 className="mt-4 text-lg font-semibold text-[var(--text)]">{area.title}</h3>
-                        <p className="mt-2 text-sm leading-7 text-[var(--muted)]">{area.description}</p>
+                        <p className="mt-2 text-sm leading-6 text-[var(--muted)]">{compactFocusCopy[index]}</p>
                       </article>
                     );
                   })}
@@ -175,20 +174,18 @@ export default function About() {
 
           <Reveal className="surface-panel h-full overflow-hidden p-0" delay={0.08}>
             <div className="relative h-full p-6 sm:p-8">
-              <div className="pointer-events-none absolute inset-x-0 top-0 h-36 bg-[linear-gradient(180deg,rgba(37,99,235,0.12),transparent)]" />
+              <div className="pointer-events-none absolute inset-x-0 top-0 h-36 bg-[linear-gradient(180deg,rgba(37,99,235,0.14),rgba(37,99,235,0.04),transparent)]" />
 
-              <div className="relative flex h-full flex-col">
+              <div className="relative flex h-full flex-col gap-5">
                 <div className="rounded-[24px] border border-[var(--surface-border)] bg-[var(--surface-strong)] p-5">
                   <p className="meta-label">At A Glance</p>
-                  <h3 className="mt-3 text-2xl font-semibold text-[var(--text)] sm:text-[2rem] sm:leading-[1.1]">
-                    A quick high-signal view.
+                  <h3 className="mt-3 text-2xl font-semibold text-[var(--text)] sm:text-[1.9rem] sm:leading-[1.15]">
+                    Software, ML, and research-led execution with a frontend eye.
                   </h3>
-                  <p className="mt-4 text-sm leading-7 text-[var(--muted)]">
-                    {profile.availability}
-                  </p>
+                  <p className="mt-3 text-sm leading-7 text-[var(--muted)]">{aboutAvailability}</p>
                 </div>
 
-                <div className="mt-5 space-y-3">
+                <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-1">
                   {snapshotItems.map((item, index) => {
                     const SnapshotIcon = snapshotIcons[index];
 
@@ -202,14 +199,14 @@ export default function About() {
                         </span>
                         <div>
                           <p className="meta-label !text-[var(--accent)]">{item.label}</p>
-                          <p className="mt-2 text-sm leading-7 text-[var(--text)]">{item.value}</p>
+                          <p className="mt-2 text-sm leading-6 text-[var(--text)]">{item.value}</p>
                         </div>
                       </div>
                     );
                   })}
                 </div>
 
-                <div className="mt-auto pt-6">
+                <div className="mt-auto pt-1">
                   <a href={profile.resume} download className="secondary-button w-full justify-between">
                     Resume Snapshot
                     <ArrowUpRight size={16} />
@@ -220,7 +217,7 @@ export default function About() {
           </Reveal>
         </div>
 
-        <div className="mt-16">
+        <div className="mt-12">
           <Reveal className="surface-panel p-3 sm:p-4">
             <div className="grid gap-4 xl:grid-cols-[250px_minmax(0,1fr)]">
               <div className="rounded-[24px] border border-[var(--surface-border)] bg-[var(--surface-strong)] p-3">

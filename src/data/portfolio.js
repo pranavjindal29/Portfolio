@@ -14,21 +14,19 @@ export const profile = {
   resume: '/Pranav_Jindal_Resume.pdf',
   headline:
     'Building ML systems, telecom research infrastructure, and polished product experiences.',
-  subheadline:
-    'Experience across IIT Bombay, IIT Roorkee, DRDO, and startup ML delivery.',
-  summary:
-    'I work where systems thinking, applied machine learning, and crisp frontend execution meet, with a focus on dependable shipping.',
+  subheadline: '',
+  summary: '',
   availability:
     'Open to software engineering, machine learning, data, and platform-focused roles at product and finance-led teams.',
 };
 
-export const heroRoles = ['Software Engineer', 'ML Engineer', 'Research Engineer'];
+export const heroRoles = ['Frontend Engineer', 'Software Engineer', 'ML Engineer'];
 
 export const heroStats = [
   { value: '4+', label: 'hands-on research and engineering roles' },
   { value: '54K+', label: 'images used in training workflows' },
   { value: '20+', label: 'juniors mentored in ML communities' },
-  { value: 'AWS', label: 'certified cloud foundation' },
+  { value: 'AWS', label: 'certified cloud practitioner' },
 ];
 
 export const heroStrengths = [

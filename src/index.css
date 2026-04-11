@@ -95,14 +95,44 @@ img {
   display: block;
 }
 
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+.animate-blink {
+  animation: blink 1s step-start infinite;
+}
+
 @layer components {
   .content-container {
-    @apply mx-auto w-full max-w-6xl;
+    @apply mx-auto w-full max-w-7xl;
   }
 
   .section-shell {
-    @apply relative px-4 py-24 sm:px-6 lg:px-8;
+    position: relative;
+    padding-inline: 1rem;
+    padding-top: clamp(3.5rem, 4.5vw, 4.75rem);
+    padding-bottom: clamp(3.25rem, 4vw, 4.5rem);
+    scroll-margin-top: 4.75rem;
     isolation: isolate;
+  }
+
+  @media (min-width: 640px) {
+    .section-shell {
+      padding-inline: 1.5rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .section-shell {
+      padding-inline: 2rem;
+    }
   }
 
   .section-eyebrow {

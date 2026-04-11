@@ -5,7 +5,7 @@ import { projects } from '../data/portfolio';
 
 export default function Projects() {
   return (
-    <section id="projects" className="section-shell scroll-mt-24">
+    <section id="projects" className="section-shell scroll-mt-6 lg:scroll-mt-8">
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <div className="absolute left-1/2 top-10 h-44 w-72 -translate-x-1/2 rounded-full bg-sky-400/12 blur-3xl dark:bg-cyan-300/12" />
       </div>
@@ -18,7 +18,7 @@ export default function Projects() {
           align="center"
         />
 
-        <div className="mt-14 grid gap-6 lg:grid-cols-2">
+        <div className="mt-12 grid gap-6 lg:grid-cols-2">
           {projects.map((project, index) => (
             <Reveal key={project.title} delay={index * 0.08}>
               <article className="surface-panel flex h-full flex-col overflow-hidden p-6 sm:p-7">

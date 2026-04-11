@@ -6,6 +6,31 @@ export default function Navbar({ darkMode, toggleTheme, activeSection }) {
   const [scrolled, setScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  const handleNavigation = (event, sectionId, shouldCloseMenu = false) => {
+    event.preventDefault();
+
+    if (shouldCloseMenu) {
+      setIsMenuOpen(false);
+    }
+
+    if (sectionId === 'home') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+
+    const section = document.getElementById(sectionId);
+
+    if (!section) {
+      return;
+    }
+
+    const navHeight = document.querySelector('nav')?.offsetHeight ?? 0;
+    const sectionTop = section.getBoundingClientRect().top + window.scrollY;
+    const top = Math.max(sectionTop - navHeight + 28, 0);
+
+    window.scrollTo({ top, behavior: 'smooth' });
+  };
+
   useEffect(() => {
     const updateScrolled = () => setScrolled(window.scrollY > 24);
 
@@ -33,7 +58,7 @@ export default function Navbar({ darkMode, toggleTheme, activeSection }) {
       }`}
     >
       <div
-        className={`mx-auto flex max-w-6xl items-center justify-between rounded-full border px-4 py-3 shadow-sm transition-all duration-300 sm:px-6 ${
+        className={`mx-auto flex max-w-7xl items-center justify-between rounded-full border px-4 py-3 shadow-sm transition-all duration-300 sm:px-6 ${
           scrolled
             ? 'border-[var(--surface-border)] bg-[var(--surface)] shadow-[var(--shadow)]'
             : 'border-transparent bg-transparent shadow-none'
@@ -59,6 +84,7 @@ export default function Navbar({ darkMode, toggleTheme, activeSection }) {
               <a
                 key={item}
                 href={`#${href}`}
+                onClick={(event) => handleNavigation(event, href)}
                 aria-current={isActive ? 'page' : undefined}
                 className={`relative inline-flex items-center rounded-full px-4 py-2 text-sm font-medium transition-all duration-300 ${
                   isActive
@@ -114,7 +140,7 @@ export default function Navbar({ darkMode, toggleTheme, activeSection }) {
                 <a
                   key={item}
                   href={`#${href}`}
-                  onClick={() => setIsMenuOpen(false)}
+                  onClick={(event) => handleNavigation(event, href, true)}
                   aria-current={isActive ? 'page' : undefined}
                   className={`block rounded-2xl px-4 py-3 text-sm font-medium transition ${
                     isActive
