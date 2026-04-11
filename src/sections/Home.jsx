@@ -1,24 +1,7 @@
 import { useEffect, useState } from 'react';
-import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
-import {
-  ArrowRight,
-  CheckCircle2,
-  Code2,
-  Download,
-  Github,
-  Linkedin,
-  Mail,
-  Phone,
-} from 'lucide-react';
-import { heroRoles, heroStats, heroStrengths, profile, socialLinks } from '../data/portfolio';
-
-const iconMap = {
-  Mobile: Phone,
-  Mail,
-  GitHub: Github,
-  LinkedIn: Linkedin,
-  LeetCode: Code2,
-};
+import { motion, useReducedMotion } from 'framer-motion';
+import { ArrowRight, CheckCircle2, Download } from 'lucide-react';
+import { heroRoles, heroStats, heroStrengths, profile } from '../data/portfolio';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -43,10 +26,9 @@ const itemVariants = {
   },
 };
 
-export default function Home({ sidebarVisible = false }) {
+export default function Home() {
   const [roleIndex, setRoleIndex] = useState(0);
   const [typedRole, setTypedRole] = useState(heroRoles[0]);
-  const [copied, setCopied] = useState('');
   const shouldReduceMotion = useReducedMotion();
 
   useEffect(() => {
@@ -85,18 +67,6 @@ export default function Home({ sidebarVisible = false }) {
 
     return () => window.clearInterval(typing);
   }, [roleIndex, shouldReduceMotion]);
-
-  const handleCopy = async (type) => {
-    const value = type === 'Mobile' ? profile.phone : profile.email;
-
-    try {
-      await navigator.clipboard.writeText(value);
-      setCopied(type);
-      window.setTimeout(() => setCopied(''), 1800);
-    } catch (error) {
-      setCopied('');
-    }
-  };
 
   const scrollToSection = (id) => {
     const section = document.getElementById(id);
@@ -186,7 +156,7 @@ export default function Home({ sidebarVisible = false }) {
 
           <motion.div
             variants={itemVariants}
-            className="surface-panel relative overflow-hidden px-3.5 pb-3.5 pt-3 lg:mt-[0.55rem] lg:mr-[-0.15rem] lg:flex lg:min-h-[176px] lg:max-w-none lg:flex-col lg:pt-2.5 xl:mt-[0.75rem] xl:mr-[-0.3rem] xl:min-h-[186px]"
+            className="surface-panel relative overflow-hidden px-3.5 pb-3 pt-3 lg:mt-[1.05rem] lg:flex lg:min-h-[168px] lg:max-w-none lg:flex-col lg:pt-2.5 xl:mt-[1.2rem] xl:min-h-[178px]"
           >
             <div className="pointer-events-none absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-[var(--accent-soft)]/70 to-transparent" />
             <div className="relative grid auto-rows-fr gap-3 sm:grid-cols-2 lg:h-full lg:grid-cols-4 lg:content-stretch">
@@ -195,13 +165,13 @@ export default function Home({ sidebarVisible = false }) {
                   key={stat.label}
                   whileHover={shouldReduceMotion ? undefined : { y: -5, scale: 1.01 }}
                   transition={{ duration: 0.22, ease: 'easeOut' }}
-                  className="group grid h-full min-h-[7.8rem] grid-rows-[0.8rem_2.15rem_minmax(0,1fr)] rounded-[24px] border border-[var(--surface-border)] bg-[linear-gradient(180deg,rgba(255,255,255,0.96),rgba(255,255,255,0.9))] px-4 pb-3 pt-3.5 shadow-[0_10px_24px_rgba(15,23,42,0.06)] transition-all duration-300 hover:border-[var(--accent)] hover:shadow-[0_18px_36px_rgba(37,99,235,0.12)] dark:bg-[linear-gradient(180deg,rgba(13,24,41,0.98),rgba(13,24,41,0.92))]"
+                  className="group grid h-full min-h-[7.15rem] grid-rows-[0.72rem_2rem_minmax(0,1fr)] rounded-[24px] border border-[var(--surface-border)] bg-[linear-gradient(180deg,rgba(255,255,255,0.96),rgba(255,255,255,0.9))] px-3.5 pb-2.5 pt-3 shadow-[0_10px_24px_rgba(15,23,42,0.06)] transition-all duration-300 hover:border-[var(--accent)] hover:shadow-[0_18px_36px_rgba(37,99,235,0.12)] dark:bg-[linear-gradient(180deg,rgba(13,24,41,0.98),rgba(13,24,41,0.92))]"
                 >
                   <div className="mx-auto h-1.5 w-12 self-start rounded-full bg-[var(--accent-soft)] transition-all duration-300 group-hover:w-14 group-hover:bg-[var(--accent)]" />
-                  <p className="self-center text-center text-[1.78rem] font-semibold leading-none text-[var(--text)] transition-colors duration-300 group-hover:text-[var(--accent)]">
+                  <p className="self-center text-center text-[1.72rem] font-semibold leading-none text-[var(--text)] transition-colors duration-300 group-hover:text-[var(--accent)]">
                     {stat.value}
                   </p>
-                  <p className="mt-1 mx-auto max-w-[13ch] self-start text-center text-[0.86rem] leading-[1.32] text-[var(--muted)] transition-colors duration-300 group-hover:text-[var(--text)]">
+                  <p className="mt-1 mx-auto max-w-[12ch] self-start text-center text-[0.85rem] leading-[1.3] text-[var(--muted)] transition-colors duration-300 group-hover:text-[var(--text)]">
                     {stat.label}
                   </p>
                 </motion.div>
@@ -267,70 +237,6 @@ export default function Home({ sidebarVisible = false }) {
         </motion.div>
       </div>
 
-      <motion.div
-        initial={false}
-        animate={{
-          x: sidebarVisible ? 0 : -28,
-          opacity: sidebarVisible ? 1 : 0,
-          scale: sidebarVisible ? 1 : 0.96,
-        }}
-        transition={{ type: 'spring', stiffness: 210, damping: 24 }}
-        style={{ pointerEvents: sidebarVisible ? 'auto' : 'none' }}
-        className="fixed bottom-0 left-3 z-40 hidden flex-col items-center gap-4 md:flex lg:left-[1.1rem]"
-      >
-        {socialLinks.map((link) => {
-          const IconComponent = iconMap[link.name];
-          const isCopyAction = !link.href;
-
-          return (
-            <motion.div
-              key={link.name}
-              whileHover={{ scale: 1.06, y: -2 }}
-              className="group relative inline-flex"
-            >
-              {isCopyAction ? (
-                <button
-                  type="button"
-                  onClick={() => handleCopy(link.name)}
-                  className="flex h-11 w-11 items-center justify-center rounded-full border border-[var(--surface-border)] bg-[var(--surface)] text-[var(--text)] shadow-sm backdrop-blur-xl transition hover:border-[var(--accent)] hover:text-[var(--accent)]"
-                  aria-label={link.name}
-                >
-                  <IconComponent size={18} />
-                </button>
-              ) : (
-                <a
-                  href={link.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex h-11 w-11 items-center justify-center rounded-full border border-[var(--surface-border)] bg-[var(--surface)] text-[var(--text)] shadow-sm backdrop-blur-xl transition hover:border-[var(--accent)] hover:text-[var(--accent)]"
-                  aria-label={link.name}
-                >
-                  <IconComponent size={18} />
-                </a>
-              )}
-
-              <div className="pointer-events-none absolute left-14 top-1/2 -translate-y-1/2 whitespace-nowrap rounded-full border border-[var(--surface-border)] bg-[var(--surface-strong)] px-3 py-1.5 text-xs font-medium text-[var(--text)] opacity-0 shadow-sm backdrop-blur-xl transition group-hover:opacity-100">
-                {link.value}
-                {isCopyAction ? <span className="ml-1 text-[var(--muted)]">copy</span> : null}
-              </div>
-            </motion.div>
-          );
-        })}
-        <div className="mt-1 h-24 w-px bg-[var(--surface-border)]" />
-      </motion.div>
-
-      <AnimatePresence>
-        {copied ? (
-          <motion.div
-            initial={{ opacity: 0, x: 40 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: 40 }}
-            className="fixed bottom-8 right-4 z-50 rounded-full bg-emerald-500 px-4 py-2 text-sm font-medium text-white shadow-lg sm:right-6"
-          >
-            {copied === 'Mobile' ? 'Phone number copied' : 'Email copied'}
-          </motion.div>
-        ) : null}
-      </AnimatePresence>
     </section>
   );
 }

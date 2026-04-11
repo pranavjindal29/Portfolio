@@ -2,6 +2,7 @@ import { AnimatePresence } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import Navbar from './components/Navbar';
 import LoadingScreen from './components/LoadingScreen';
+import SocialSidebar from './components/SocialSidebar';
 import Home from './sections/Home';
 import About from './sections/About';
 import Resume from './sections/Resume';
@@ -196,12 +197,14 @@ function App() {
         toggleTheme={() => setDarkMode((previous) => !previous)}
       />
 
+      <SocialSidebar visible={!isLoading} />
+
       <main
         className={`relative transition-all duration-700 ease-out ${
           isLoading ? 'translate-y-2 opacity-0' : 'translate-y-0 opacity-100'
         }`}
       >
-        <Home sidebarVisible={activeSection !== 'home'} />
+        <Home />
         <About />
         <Resume />
         <Projects />

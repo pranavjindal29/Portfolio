@@ -114,6 +114,18 @@ img {
     @apply mx-auto w-full max-w-7xl;
   }
 
+  @media (min-width: 1024px) {
+    .content-container {
+      padding-inline: 1.5rem;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .content-container {
+      padding-inline: 1.75rem;
+    }
+  }
+
   .section-shell {
     position: relative;
     padding-inline: 1rem;
