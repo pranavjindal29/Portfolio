@@ -17,26 +17,26 @@ export default function Resume() {
       </div>
 
       <div className="content-container relative">
-        <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+        <div className="flex flex-col gap-5 sm:gap-6 lg:flex-row lg:items-end lg:justify-between">
           <SectionHeading
             eyebrow="Resume"
             title="Experience shaped by research, shipping, and applied problem-solving."
             description="A mix of institute research, computer vision deployment, geospatial tooling, and production-facing ML work."
           />
 
-          <Reveal>
-            <a href={profile.resume} download className="secondary-button w-fit">
+          <Reveal className="w-full sm:w-auto">
+            <a href={profile.resume} download className="secondary-button w-full sm:w-fit">
               Download Resume
               <Download size={16} />
             </a>
           </Reveal>
         </div>
 
-        <div className="mt-12 grid gap-6 xl:grid-cols-[minmax(0,1.35fr)_380px]">
-          <div className="space-y-5">
+        <div className="mt-10 grid gap-5 sm:mt-12 sm:gap-6 xl:grid-cols-[minmax(0,1.35fr)_380px]">
+          <div className="space-y-4 sm:space-y-5">
             {experience.map((item, index) => (
               <Reveal key={`${item.organization}-${item.title}`} delay={index * 0.06}>
-                <article className="surface-panel overflow-hidden p-6 sm:p-7">
+                <article className="surface-panel overflow-hidden p-5 sm:p-7">
                   <div className="flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between">
                     <div>
                       <div className="flex items-center gap-2 text-[var(--accent)]">
@@ -46,7 +46,7 @@ export default function Resume() {
                       <h3 className="mt-3 text-xl font-semibold text-[var(--text)] sm:text-2xl">{item.title}</h3>
                       <p className="mt-1 text-base font-medium text-[var(--muted)]">{item.organization}</p>
                     </div>
-                    <span className="chip whitespace-nowrap">{item.period}</span>
+                    <span className="chip w-fit whitespace-nowrap">{item.period}</span>
                   </div>
 
                   <p className="mt-5 text-sm leading-7 text-[var(--muted)] sm:text-base">{item.summary}</p>
@@ -72,9 +72,9 @@ export default function Resume() {
             ))}
           </div>
 
-          <div className="space-y-6">
+          <div className="space-y-5 sm:space-y-6">
             <Reveal>
-              <article className="surface-panel p-6 sm:p-7">
+              <article className="surface-panel p-5 sm:p-7">
                 <div className="flex items-center gap-2 text-[var(--accent)]">
                   <GraduationCap size={17} />
                   <span className="meta-label !text-[var(--accent)]">Education</span>
@@ -104,7 +104,7 @@ export default function Resume() {
             </Reveal>
 
             <Reveal>
-              <article className="surface-panel p-6 sm:p-7">
+              <article className="surface-panel p-5 sm:p-7">
                 <div className="flex items-center gap-2 text-[var(--accent)]">
                   <Award size={17} />
                   <span className="meta-label !text-[var(--accent)]">Certifications</span>
@@ -142,7 +142,7 @@ export default function Resume() {
 
             {leadershipHighlights.map((highlight, index) => (
               <Reveal key={highlight.title} delay={index * 0.08}>
-                <article className="surface-panel p-6">
+                <article className="surface-panel p-5 sm:p-6">
                   <div className="flex items-center gap-2 text-[var(--accent)]">
                     <Sparkles size={16} />
                     <span className="meta-label !text-[var(--accent)]">Highlight</span>

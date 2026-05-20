@@ -91,9 +91,9 @@ export default function Contact() {
           description="If you’re hiring for software, ML, data, or platform work, I’d be happy to connect. The form below now sends directly to my inbox."
         />
 
-        <div className="mt-12 grid items-stretch gap-6 xl:grid-cols-[380px_minmax(0,1fr)]">
+        <div className="mt-10 grid items-stretch gap-5 sm:mt-12 sm:gap-6 xl:grid-cols-[380px_minmax(0,1fr)]">
           <Reveal className="h-full">
-            <article className="surface-panel flex h-full flex-col p-6 sm:p-7">
+            <article className="surface-panel flex h-full flex-col p-5 sm:p-7">
               <span className="section-eyebrow">Get In Touch</span>
               <h3 className="mt-4 text-2xl font-semibold text-[var(--text)]">
                 Open to strong engineering conversations.
@@ -107,31 +107,31 @@ export default function Contact() {
               <div className="mt-8 space-y-3">
                 <a
                   href={`mailto:${profile.email}`}
-                  className="flex items-center justify-between rounded-[22px] border border-[var(--surface-border)] bg-[var(--surface-strong)] px-4 py-4 text-sm text-[var(--text)] transition hover:border-[var(--accent)] hover:text-[var(--accent)]"
+                  className="flex flex-col items-start gap-2 rounded-[20px] border border-[var(--surface-border)] bg-[var(--surface-strong)] px-4 py-4 text-sm text-[var(--text)] transition hover:border-[var(--accent)] hover:text-[var(--accent)] sm:flex-row sm:items-center sm:justify-between sm:gap-4 sm:rounded-[22px]"
                 >
                   <span className="flex items-center gap-3">
                     <Mail size={16} />
                     <span>Email</span>
                   </span>
-                  <span className="text-right text-xs text-[var(--muted)] sm:text-sm">{profile.email}</span>
+                  <span className="break-all text-left text-xs text-[var(--muted)] sm:text-right sm:text-sm">{profile.email}</span>
                 </a>
 
                 <a
                   href={`tel:${profile.phone}`}
-                  className="flex items-center justify-between rounded-[22px] border border-[var(--surface-border)] bg-[var(--surface-strong)] px-4 py-4 text-sm text-[var(--text)] transition hover:border-[var(--accent)] hover:text-[var(--accent)]"
+                  className="flex flex-col items-start gap-2 rounded-[20px] border border-[var(--surface-border)] bg-[var(--surface-strong)] px-4 py-4 text-sm text-[var(--text)] transition hover:border-[var(--accent)] hover:text-[var(--accent)] sm:flex-row sm:items-center sm:justify-between sm:gap-4 sm:rounded-[22px]"
                 >
                   <span className="flex items-center gap-3">
                     <Phone size={16} />
                     <span>Phone</span>
                   </span>
-                  <span className="text-right text-xs text-[var(--muted)] sm:text-sm">{profile.phone}</span>
+                  <span className="text-left text-xs text-[var(--muted)] sm:text-right sm:text-sm">{profile.phone}</span>
                 </a>
               </div>
             </article>
           </Reveal>
 
           <Reveal className="h-full">
-            <form onSubmit={handleSubmit} className="surface-panel flex h-full flex-col p-6 sm:p-8">
+            <form onSubmit={handleSubmit} className="surface-panel flex h-full flex-col p-5 sm:p-8">
               <div className="grid gap-4 md:grid-cols-2">
                 <label className="block">
                   <span className="meta-label">Name</span>
@@ -214,7 +214,7 @@ export default function Contact() {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="primary-button disabled:cursor-not-allowed disabled:opacity-70"
+                  className="primary-button w-full sm:w-auto disabled:cursor-not-allowed disabled:opacity-70"
                 >
                   {isSubmitting ? 'Sending...' : 'Send Message'}
                   <ArrowRight size={16} />

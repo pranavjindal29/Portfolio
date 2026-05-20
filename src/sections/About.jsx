@@ -2,6 +2,8 @@ import { useEffect, useRef, useState } from 'react';
 import { Icon } from '@iconify/react';
 import {
   ArrowUpRight,
+  ChevronLeft,
+  ChevronRight,
   BrainCircuit,
   BriefcaseBusiness,
   Cloud,
@@ -23,19 +25,30 @@ const snapshotIcons = [BriefcaseBusiness, BrainCircuit, MapPin, Sparkles];
 const stackIcons = {
   Frontend: LayoutPanelTop,
   Programming: Code2,
+  'Backend & Systems': Wrench,
+  'Data Engineering': Database,
   'AI / ML': BrainCircuit,
   'Data Science': Database,
   'Model Evaluation': Gauge,
-  'Cloud & Tools': Cloud,
-  Tools: Wrench,
+  'Cloud & DevOps': Cloud,
+  'Telecom & Networking': ShieldCheck,
+  'Tools & Platforms': BriefcaseBusiness,
 };
 
 export default function About() {
   const [activeCategory, setActiveCategory] = useState(techStack[0].category);
-  const [scrollThumb, setScrollThumb] = useState({ height: 56, offset: 0, visible: false });
+  const [scrollThumb, setScrollThumb] = useState({
+    verticalHeight: 56,
+    verticalOffset: 0,
+    verticalVisible: false,
+    horizontalWidth: 48,
+    horizontalOffset: 0,
+    horizontalVisible: false,
+  });
   const stackListRef = useRef(null);
   const activeStack = techStack.find((group) => group.category === activeCategory) ?? techStack[0];
-  const ActiveStackIcon = stackIcons[activeStack.category] ?? LayoutPanelTop;
+  const isDenseStack = activeStack.skills.length > 9;
+  const isSparseStack = activeStack.skills.length <= 7;
   const snapshotItems = [
     {
       label: 'Current role',
@@ -54,16 +67,12 @@ export default function About() {
       value: 'SDE, ML, data, and platform roles',
     },
   ];
-  const recentEnvironments = ['IIT Bombay', 'IIT Roorkee', 'DRDO', 'SVGS IT'];
   const overviewTags = ['Software', 'ML Systems', 'Research'];
-  const aboutAvailability = 'Open to frontend, software, ML, data, and platform roles.';
   const compactFocusCopy = [
     'Architecture-first thinking with attention to product details.',
     'Hands-on from training and evaluation through deployment choices.',
     'Clear communication, dependable execution, and polished delivery.',
   ];
-
-  const totalSkills = techStack.reduce((count, group) => count + group.skills.length, 0);
 
   useEffect(() => {
     const element = stackListRef.current;
@@ -73,20 +82,34 @@ export default function About() {
     }
 
     const updateScrollThumb = () => {
-      const { clientHeight, scrollHeight, scrollTop } = element;
-      const canScroll = scrollHeight - clientHeight > 4;
+      const { clientHeight, scrollHeight, scrollTop, clientWidth, scrollWidth, scrollLeft } = element;
+      const canScrollY = scrollHeight - clientHeight > 4;
+      const canScrollX = scrollWidth - clientWidth > 4;
 
-      if (!canScroll) {
-        setScrollThumb({ height: clientHeight, offset: 0, visible: false });
-        return;
-      }
+      const nextVerticalHeight = canScrollY
+        ? Math.max((clientHeight / scrollHeight) * clientHeight, 44)
+        : clientHeight;
+      const verticalMaxOffset = Math.max(clientHeight - nextVerticalHeight, 0);
+      const verticalScrollRange = Math.max(scrollHeight - clientHeight, 1);
+      const nextVerticalOffset = canScrollY ? (scrollTop / verticalScrollRange) * verticalMaxOffset : 0;
 
-      const nextHeight = Math.max((clientHeight / scrollHeight) * clientHeight, 44);
-      const maxOffset = Math.max(clientHeight - nextHeight, 0);
-      const scrollRange = Math.max(scrollHeight - clientHeight, 1);
-      const nextOffset = (scrollTop / scrollRange) * maxOffset;
+      const nextHorizontalWidth = canScrollX
+        ? Math.max((clientWidth / scrollWidth) * clientWidth, 44)
+        : clientWidth;
+      const horizontalMaxOffset = Math.max(clientWidth - nextHorizontalWidth, 0);
+      const horizontalScrollRange = Math.max(scrollWidth - clientWidth, 1);
+      const nextHorizontalOffset = canScrollX
+        ? (scrollLeft / horizontalScrollRange) * horizontalMaxOffset
+        : 0;
 
-      setScrollThumb({ height: nextHeight, offset: nextOffset, visible: true });
+      setScrollThumb({
+        verticalHeight: nextVerticalHeight,
+        verticalOffset: nextVerticalOffset,
+        verticalVisible: canScrollY,
+        horizontalWidth: nextHorizontalWidth,
+        horizontalOffset: nextHorizontalOffset,
+        horizontalVisible: canScrollX,
+      });
     };
 
     updateScrollThumb();
@@ -99,8 +122,19 @@ export default function About() {
     };
   }, []);
 
+  const scrollSkillRail = (direction) => {
+    const element = stackListRef.current;
+
+    if (!element) {
+      return;
+    }
+
+    const distance = Math.max(element.clientWidth * 0.72, 140) * direction;
+    element.scrollBy({ left: distance, behavior: 'smooth' });
+  };
+
   return (
-    <section id="about" className="section-shell scroll-mt-6 lg:scroll-mt-8">
+    <section id="about" className="section-shell scroll-mt-20 pt-4 sm:scroll-mt-24 sm:pt-5 lg:scroll-mt-24 lg:pt-6">
       <div className="content-container">
         <SectionHeading
           eyebrow="About"
@@ -108,12 +142,12 @@ export default function About() {
           description="I like building products that balance rigorous systems underneath with clean, considered execution on the surface."
         />
 
-        <div className="mt-12 grid items-stretch gap-6 xl:grid-cols-[minmax(0,1.05fr)_340px]">
+        <div className="mt-10 grid items-start gap-5 sm:mt-11 sm:gap-6 xl:grid-cols-[minmax(0,1.08fr)_320px]">
           <Reveal className="surface-panel h-full overflow-hidden p-0">
-            <div className="relative h-full p-6 sm:p-8">
+            <div className="relative h-full p-5 sm:p-7">
               <div className="pointer-events-none absolute inset-x-0 top-0 h-36 bg-[linear-gradient(180deg,rgba(37,99,235,0.14),rgba(37,99,235,0.04),transparent)]" />
 
-              <div className="relative flex h-full flex-col gap-6">
+              <div className="relative flex h-full flex-col gap-4 sm:gap-5">
                 <div className="flex flex-wrap items-center justify-between gap-3">
                   <span className="section-eyebrow">Overview</span>
                   <div className="flex flex-wrap gap-2">
@@ -128,36 +162,23 @@ export default function About() {
                   </div>
                 </div>
 
-                <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_220px] lg:items-start">
-                  <div>
-                    <h3 className="max-w-3xl text-3xl font-semibold tracking-tight text-[var(--text)] sm:text-[2.45rem] sm:leading-[1.08]">
-                      I like turning technically dense work into products that feel clean, usable, and dependable.
-                    </h3>
-                    <p className="mt-4 max-w-2xl text-base leading-8 text-[var(--muted)] sm:text-lg">
-                      {aboutParagraphs[0]}
-                    </p>
-                  </div>
-
-                  <div className="rounded-[24px] border border-[var(--surface-border)] bg-[var(--surface-strong)] p-5">
-                    <p className="meta-label">Recent Environments</p>
-                    <div className="mt-4 flex flex-wrap gap-2">
-                      {recentEnvironments.map((item) => (
-                        <span key={item} className="chip !rounded-full !px-3 !py-1.5 !text-[11px] !tracking-[0.18em]">
-                          {item}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
+                <div>
+                  <h3 className="max-w-3xl text-[1.85rem] font-semibold leading-[1.1] tracking-tight text-[var(--text)] sm:text-[2.35rem] sm:leading-[1.08]">
+                    I like turning technically dense work into products that feel clean, usable, and dependable.
+                  </h3>
+                  <p className="mt-4 max-w-2xl text-[0.98rem] leading-7 text-[var(--muted)] sm:text-lg sm:leading-8">
+                    {aboutParagraphs[0]}
+                  </p>
                 </div>
 
-                <div className="grid gap-4 md:grid-cols-3">
+                <div className="grid gap-3 sm:gap-4 md:grid-cols-3">
                   {focusAreas.map((area, index) => {
                     const FocusIcon = focusIcons[index];
 
                     return (
                       <article
                         key={area.title}
-                        className="flex h-full flex-col rounded-[24px] border border-[var(--surface-border)] bg-[var(--surface-strong)] p-5"
+                        className="flex h-full flex-col rounded-[22px] border border-[var(--surface-border)] bg-[var(--surface-strong)] p-4 sm:rounded-[24px] sm:p-5"
                       >
                         <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[var(--accent-soft)] text-[var(--accent)]">
                           <FocusIcon size={18} />
@@ -173,18 +194,10 @@ export default function About() {
           </Reveal>
 
           <Reveal className="surface-panel h-full overflow-hidden p-0" delay={0.08}>
-            <div className="relative h-full p-6 sm:p-8">
+            <div className="relative h-full p-5 sm:p-6">
               <div className="pointer-events-none absolute inset-x-0 top-0 h-36 bg-[linear-gradient(180deg,rgba(37,99,235,0.14),rgba(37,99,235,0.04),transparent)]" />
 
-              <div className="relative flex h-full flex-col gap-5">
-                <div className="rounded-[24px] border border-[var(--surface-border)] bg-[var(--surface-strong)] p-5">
-                  <p className="meta-label">At A Glance</p>
-                  <h3 className="mt-3 text-2xl font-semibold text-[var(--text)] sm:text-[1.9rem] sm:leading-[1.15]">
-                    Software, ML, and research-led execution with a frontend eye.
-                  </h3>
-                  <p className="mt-3 text-sm leading-7 text-[var(--muted)]">{aboutAvailability}</p>
-                </div>
-
+              <div className="relative flex h-full flex-col gap-4 sm:gap-5">
                 <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-1">
                   {snapshotItems.map((item, index) => {
                     const SnapshotIcon = snapshotIcons[index];
@@ -192,7 +205,7 @@ export default function About() {
                     return (
                       <div
                         key={item.label}
-                        className="flex items-start gap-4 rounded-[22px] border border-[var(--surface-border)] bg-[var(--surface-strong)] px-4 py-4"
+                        className="flex items-start gap-3 rounded-[20px] border border-[var(--surface-border)] bg-[var(--surface-strong)] px-4 py-3.5 sm:gap-4 sm:rounded-[22px] sm:py-4"
                       >
                         <span className="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-[var(--accent-soft)] text-[var(--accent)]">
                           <SnapshotIcon size={16} />
@@ -217,69 +230,107 @@ export default function About() {
           </Reveal>
         </div>
 
-        <div className="mt-12">
-          <Reveal className="surface-panel p-3 sm:p-4">
-            <div className="grid gap-4 xl:grid-cols-[250px_minmax(0,1fr)]">
-              <div className="rounded-[24px] border border-[var(--surface-border)] bg-[var(--surface-strong)] p-3">
-                <div className="px-2 pb-3">
-                  <p className="meta-label">Skills &amp; Tools</p>
-                  <p className="mt-2 text-sm leading-6 text-[var(--muted)]">
-                    Compact, organized, and easy to scan.
-                  </p>
+        <div className="mt-10 sm:mt-12">
+          <Reveal className="surface-panel relative overflow-hidden p-3 sm:p-4">
+            <div className="pointer-events-none absolute inset-x-0 top-0 h-[10.5rem] bg-[linear-gradient(180deg,rgba(37,99,235,0.07)_0%,rgba(37,99,235,0.032)_42%,rgba(37,99,235,0.01)_74%,transparent_100%)]" />
+
+            <div className="relative mb-2 px-1 pt-1 sm:px-2">
+              <span className="section-eyebrow">Skills &amp; Technologies</span>
+            </div>
+
+            <div className="relative grid gap-3 sm:gap-4 xl:grid-cols-[346px_minmax(0,1fr)] xl:items-stretch">
+              <div className="min-w-0 self-start overflow-hidden rounded-[24px] border border-[var(--surface-border)] bg-[rgba(255,255,255,0.78)] p-2.5 shadow-[inset_0_1px_0_rgba(255,255,255,0.32)] backdrop-blur-[2px] sm:p-3.5 xl:flex xl:h-[27.15rem] xl:flex-col xl:p-[0.6rem] dark:bg-[rgba(13,24,41,0.82)]">
+                <div className="flex items-start justify-end gap-3 pb-2 xl:hidden">
+                  <div className="flex items-center gap-2 xl:hidden">
+                    <button
+                      type="button"
+                      onClick={() => scrollSkillRail(-1)}
+                      className="flex h-9 w-9 items-center justify-center rounded-full border border-[var(--surface-border)] bg-[var(--surface)] text-[var(--muted)]"
+                      aria-label="Scroll skill categories left"
+                    >
+                      <ChevronLeft size={16} />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => scrollSkillRail(1)}
+                      className="flex h-9 w-9 items-center justify-center rounded-full border border-[var(--surface-border)] bg-[var(--surface)] text-[var(--muted)]"
+                      aria-label="Scroll skill categories right"
+                    >
+                      <ChevronRight size={16} />
+                    </button>
+                  </div>
                 </div>
 
-                <div className="relative">
+                <div className="relative max-w-full overflow-hidden pt-2 xl:flex-1 xl:min-h-0 xl:py-0 xl:pt-0">
                   <div
                     ref={stackListRef}
-                    className="minimal-scrollbar flex gap-2 overflow-x-auto pb-1 xl:max-h-[18.75rem] xl:flex-col xl:overflow-x-hidden xl:overflow-y-scroll xl:pb-0 xl:pr-4"
+                    className="skill-category-rail max-w-full pb-2 xl:h-full xl:overflow-x-hidden xl:overflow-y-auto xl:pb-0 xl:pr-1"
                   >
-                    {techStack.map((group) => {
-                      const StackIcon = stackIcons[group.category] ?? LayoutPanelTop;
-                      const isActive = activeCategory === group.category;
+                    <div className="inline-flex min-w-max gap-2 snap-x snap-proximity pr-3 xl:flex xl:w-full xl:min-w-0 xl:flex-col xl:items-stretch xl:gap-2.5 xl:py-2 xl:pr-0">
+                      {techStack.map((group) => {
+                        const StackIcon = stackIcons[group.category] ?? LayoutPanelTop;
+                        const isActive = activeCategory === group.category;
 
-                      return (
-                        <button
-                          key={group.category}
-                          type="button"
-                          onClick={() => setActiveCategory(group.category)}
-                          className={`min-w-fit rounded-[20px] border px-4 py-3 text-left transition xl:min-w-0 ${
-                            isActive
-                              ? 'border-[var(--accent)] bg-[var(--accent-soft)] text-[var(--accent)]'
-                              : 'border-[var(--surface-border)] bg-[var(--surface)] text-[var(--muted)] hover:border-[var(--accent)] hover:text-[var(--text)]'
-                          }`}
-                        >
-                          <div className="flex items-center gap-3">
-                            <span
-                              className={`flex h-10 w-10 items-center justify-center rounded-2xl ${
-                                isActive
-                                  ? 'bg-[var(--surface-strong)] text-[var(--accent)]'
-                                  : 'bg-[var(--surface-strong)] text-[var(--muted)]'
-                              }`}
-                            >
-                              <StackIcon size={18} />
-                            </span>
-                            <div>
-                              <p className="text-sm font-semibold">{group.category}</p>
-                              <p className="mt-1 text-xs uppercase tracking-[0.22em] opacity-70">
-                                {group.skills.length} tools
-                              </p>
+                        return (
+                          <button
+                            key={group.category}
+                            type="button"
+                            onClick={() => setActiveCategory(group.category)}
+                            className={`skill-category-card group snap-start h-[4rem] shrink-0 min-w-max rounded-[18px] border px-4 py-0 text-left transition sm:px-4 xl:mr-3 xl:min-w-0 xl:max-w-none xl:w-[calc(100%-0.75rem)] xl:snap-none xl:h-[4.4rem] xl:rounded-[20px] xl:px-6 ${
+                              isActive
+                                ? 'border-[rgba(125,211,252,0.68)] bg-[linear-gradient(135deg,rgba(37,99,235,0.16),rgba(14,165,233,0.06))] text-[var(--accent)] shadow-[0_12px_24px_rgba(37,99,235,0.08)]'
+                                : 'border-[var(--surface-border)] bg-[linear-gradient(135deg,rgba(255,255,255,0.72),rgba(255,255,255,0.54))] text-[var(--muted)] hover:border-[rgba(125,211,252,0.42)] hover:bg-[rgba(255,255,255,0.78)] hover:text-[var(--text)] dark:bg-[rgba(15,23,42,0.74)] dark:hover:border-[rgba(125,211,252,0.3)] dark:hover:bg-[rgba(15,23,42,0.78)] dark:hover:text-slate-50 xl:bg-[linear-gradient(135deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02))] xl:hover:border-[rgba(125,211,252,0.58)] xl:hover:bg-[linear-gradient(135deg,rgba(37,99,235,0.14),rgba(14,165,233,0.05))] xl:hover:shadow-[0_14px_28px_rgba(8,17,31,0.16)] dark:xl:bg-[linear-gradient(180deg,rgba(15,23,42,0.74),rgba(15,23,42,0.52))] dark:xl:hover:border-[rgba(125,211,252,0.54)] dark:xl:hover:bg-[linear-gradient(135deg,rgba(125,211,252,0.16),rgba(37,99,235,0.08))]'
+                            }`}
+                          >
+                            <div className="flex items-center gap-2.5 xl:h-full xl:gap-3">
+                              <span
+                                className={`flex h-9 w-9 items-center justify-center rounded-2xl transition sm:h-10 sm:w-10 xl:h-[2.45rem] xl:w-[2.45rem] ${
+                                  isActive
+                                    ? 'bg-[rgba(255,255,255,0.82)] text-[var(--accent)]'
+                                    : 'bg-[var(--surface-strong)] text-[var(--muted)] group-hover:bg-[rgba(255,255,255,0.94)] group-hover:text-[var(--accent)] dark:group-hover:bg-[rgba(15,23,42,0.78)] dark:group-hover:text-sky-200'
+                                }`}
+                              >
+                                <StackIcon size={17} />
+                              </span>
+                              <div className="min-w-max xl:min-w-0 xl:flex-1">
+                                <p className="whitespace-nowrap text-[0.98rem] font-semibold leading-5 text-[var(--text)] xl:text-[0.92rem]">
+                                  {group.category}
+                                </p>
+                              </div>
                             </div>
-                          </div>
-                        </button>
-                      );
-                    })}
+                          </button>
+                        );
+                      })}
+                      <span aria-hidden="true" className="w-1 shrink-0 xl:hidden" />
+                    </div>
                   </div>
 
                   <div
-                    className="pointer-events-none absolute bottom-0 right-0 top-0 hidden w-[3px] rounded-full xl:block"
+                    className="mt-2 h-[4px] rounded-full bg-[rgba(148,163,184,0.18)] xl:hidden"
+                    aria-hidden="true"
+                  >
+                    <span
+                      className="block h-full rounded-full transition-all duration-200"
+                      style={{
+                        width: `${scrollThumb.horizontalWidth}px`,
+                        transform: `translateX(${scrollThumb.horizontalOffset}px)`,
+                        opacity: scrollThumb.horizontalVisible ? 1 : 0.35,
+                        background:
+                          'linear-gradient(90deg, rgba(37, 99, 235, 0.7), rgba(14, 165, 233, 0.58))',
+                      }}
+                    />
+                  </div>
+
+                  <div
+                    className="pointer-events-none absolute bottom-2 right-0 top-2 hidden w-[3px] rounded-full xl:block"
                     style={{ background: 'rgba(148, 163, 184, 0.18)' }}
                   >
                     <span
                       className="absolute left-0 right-0 rounded-full transition-all duration-200"
                       style={{
-                        height: `${scrollThumb.height}px`,
-                        transform: `translateY(${scrollThumb.offset}px)`,
-                        opacity: scrollThumb.visible ? 1 : 0.45,
+                        height: `${scrollThumb.verticalHeight}px`,
+                        transform: `translateY(${scrollThumb.verticalOffset}px)`,
+                        opacity: scrollThumb.verticalVisible ? 1 : 0.45,
                         background: 'linear-gradient(180deg, rgba(37, 99, 235, 0.68), rgba(14, 165, 233, 0.52))',
                       }}
                     />
@@ -287,53 +338,41 @@ export default function About() {
                 </div>
               </div>
 
-              <div className="rounded-[24px] border border-[var(--surface-border)] bg-[var(--surface-strong)] p-5 sm:p-6">
-                <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-                  <div className="max-w-2xl">
-                    <span className="section-eyebrow">Skills &amp; Technologies</span>
-                    <div className="mt-4 flex items-center gap-3">
-                      <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[var(--accent-soft)] text-[var(--accent)]">
-                        <ActiveStackIcon size={20} />
-                      </span>
-                      <div>
-                        <h3 className="text-2xl font-semibold text-[var(--text)] sm:text-3xl">
-                          {activeStack.category}
-                        </h3>
-                        <p className="mt-1 text-sm text-[var(--muted)]">
-                          {activeStack.skills.length} tools in this stack
-                        </p>
-                      </div>
-                    </div>
-                    <p className="mt-4 text-sm leading-7 text-[var(--muted)] sm:text-base">
-                      {activeStack.description}
-                    </p>
-                  </div>
-
-                  <div className="rounded-[22px] border border-[var(--surface-border)] bg-[var(--surface)] px-4 py-4 sm:min-w-[132px]">
-                    <p className="meta-label">Overall</p>
-                    <p className="mt-2 text-2xl font-semibold text-[var(--text)]">{totalSkills}+</p>
-                    <p className="mt-1 text-xs leading-5 text-[var(--muted)]">
-                      technologies across {techStack.length} categories
-                    </p>
-                  </div>
-                </div>
-
-                <div className="mt-7 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              <div className="min-w-0 rounded-[24px] border border-[var(--surface-border)] bg-[rgba(255,255,255,0.8)] p-3.5 shadow-[inset_0_1px_0_rgba(255,255,255,0.28)] backdrop-blur-[2px] sm:p-5 xl:flex xl:h-[27.15rem] xl:flex-col dark:bg-[rgba(13,24,41,0.84)]">
+                <div className="xl:flex-1">
+                <div
+                  className={`grid grid-cols-2 gap-2.5 sm:gap-3 xl:w-full ${
+                    isDenseStack
+                      ? 'lg:grid-cols-3 xl:grid-cols-4'
+                      : isSparseStack
+                        ? 'lg:grid-cols-3 xl:grid-cols-4 xl:content-start'
+                        : 'lg:grid-cols-[repeat(auto-fit,minmax(172px,1fr))] xl:content-start'
+                  }`}
+                >
                   {activeStack.skills.map((skill) => (
                     <div
                       key={skill.name}
-                      className="rounded-[20px] border border-[var(--surface-border)] bg-[var(--surface)] px-4 py-4"
+                      className={`rounded-[18px] border border-[var(--surface-border)] bg-[var(--surface)] px-3.5 py-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.3)] transition hover:-translate-y-[1px] hover:border-[rgba(37,99,235,0.25)] hover:shadow-[0_14px_30px_rgba(15,23,42,0.08)] sm:rounded-[20px] ${
+                        isDenseStack
+                          ? 'sm:min-h-[4.9rem] sm:px-3.5 sm:py-3.5'
+                          : 'sm:min-h-[5.9rem] sm:px-4 sm:py-4'
+                      }`}
                     >
-                      <div className="flex items-center gap-3">
-                        <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[var(--accent-soft)] text-[var(--accent)]">
-                          <Icon icon={skill.icon} width="20" height="20" />
+                      <div className="flex h-full flex-col items-start gap-2.5 sm:flex-row sm:items-center sm:gap-3">
+                        <span className="flex h-9 w-9 items-center justify-center rounded-2xl bg-[linear-gradient(135deg,rgba(37,99,235,0.14),rgba(14,165,233,0.08))] text-[var(--accent)] sm:h-10 sm:w-10">
+                          <Icon icon={skill.icon} width="19" height="19" />
                         </span>
-                        <span className="text-sm font-semibold text-[var(--text)] sm:text-base">
+                        <span
+                          className={`text-sm font-semibold leading-5 text-[var(--text)] ${
+                            isDenseStack ? 'sm:text-[0.93rem]' : 'sm:text-[0.98rem]'
+                          }`}
+                        >
                           {skill.name}
                         </span>
                       </div>
                     </div>
                   ))}
+                </div>
                 </div>
               </div>
             </div>

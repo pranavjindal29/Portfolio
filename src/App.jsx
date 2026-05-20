@@ -88,7 +88,7 @@ function App() {
       return undefined;
     }
 
-    const timer = window.setTimeout(dismissLoader, 1500);
+    const timer = window.setTimeout(dismissLoader, 1100);
     const handleKeydown = (event) => {
       if (event.key === 'Escape') {
         dismissLoader();
@@ -200,7 +200,7 @@ function App() {
       <SocialSidebar visible={!isLoading} />
 
       <main
-        className={`relative transition-all duration-700 ease-out ${
+        className={`layout-with-sidebar relative transition-all duration-700 ease-out ${
           isLoading ? 'translate-y-2 opacity-0' : 'translate-y-0 opacity-100'
         }`}
       >

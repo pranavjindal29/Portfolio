@@ -96,7 +96,7 @@ export default function Home() {
 
       <div className="content-container grid gap-4 lg:grid-cols-[minmax(0,1.02fr)_408px] lg:items-start lg:gap-x-3 lg:gap-y-2 xl:grid-cols-[minmax(0,1fr)_428px] xl:gap-x-4 xl:gap-y-2.5 2xl:grid-cols-[minmax(0,0.98fr)_444px]">
         <motion.div
-          className="relative z-10 flex h-full min-w-0 flex-col gap-4 lg:-mt-1 lg:gap-2"
+          className="relative z-10 order-1 flex h-full min-w-0 flex-col gap-4 lg:-mt-1 lg:gap-2"
           variants={containerVariants}
           initial={shouldReduceMotion ? false : 'hidden'}
           animate="visible"
@@ -153,38 +153,13 @@ export default function Home() {
               </button>
             </motion.div>
           </div>
-
-          <motion.div
-            variants={itemVariants}
-            className="surface-panel relative overflow-hidden px-3.5 pb-3 pt-3 lg:mt-[1.05rem] lg:flex lg:min-h-[168px] lg:max-w-none lg:flex-col lg:pt-2.5 xl:mt-[1.2rem] xl:min-h-[178px]"
-          >
-            <div className="pointer-events-none absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-[var(--accent-soft)]/70 to-transparent" />
-            <div className="relative grid auto-rows-fr gap-3 sm:grid-cols-2 lg:h-full lg:grid-cols-4 lg:content-stretch">
-              {heroStats.map((stat) => (
-                <motion.div
-                  key={stat.label}
-                  whileHover={shouldReduceMotion ? undefined : { y: -5, scale: 1.01 }}
-                  transition={{ duration: 0.22, ease: 'easeOut' }}
-                  className="group grid h-full min-h-[7.15rem] grid-rows-[0.72rem_2rem_minmax(0,1fr)] rounded-[24px] border border-[var(--surface-border)] bg-[linear-gradient(180deg,rgba(255,255,255,0.96),rgba(255,255,255,0.9))] px-3.5 pb-2.5 pt-3 shadow-[0_10px_24px_rgba(15,23,42,0.06)] transition-all duration-300 hover:border-[var(--accent)] hover:shadow-[0_18px_36px_rgba(37,99,235,0.12)] dark:bg-[linear-gradient(180deg,rgba(13,24,41,0.98),rgba(13,24,41,0.92))]"
-                >
-                  <div className="mx-auto h-1.5 w-12 self-start rounded-full bg-[var(--accent-soft)] transition-all duration-300 group-hover:w-14 group-hover:bg-[var(--accent)]" />
-                  <p className="self-center text-center text-[1.72rem] font-semibold leading-none text-[var(--text)] transition-colors duration-300 group-hover:text-[var(--accent)]">
-                    {stat.value}
-                  </p>
-                  <p className="mt-1 mx-auto max-w-[12ch] self-start text-center text-[0.85rem] leading-[1.3] text-[var(--muted)] transition-colors duration-300 group-hover:text-[var(--text)]">
-                    {stat.label}
-                  </p>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
         </motion.div>
 
         <motion.div
           initial={shouldReduceMotion ? false : { opacity: 0, y: 28 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.75, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
-          className="relative z-10 min-w-0 w-full lg:max-w-[444px] lg:justify-self-end lg:-mt-[0.75rem] xl:max-w-[460px] xl:-mt-[1rem]"
+          className="relative z-10 order-2 min-w-0 w-full lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:max-w-[444px] lg:justify-self-end lg:-mt-[0.75rem] xl:max-w-[460px] xl:-mt-[1rem]"
         >
           <div className="surface-panel relative flex h-full min-w-0 flex-col overflow-hidden p-4 sm:p-4.5">
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(96,165,250,0.22),transparent_38%)]" />
@@ -195,7 +170,6 @@ export default function Home() {
                 width="1091"
                 height="1200"
                 sizes="(min-width: 1536px) 456px, (min-width: 1280px) 440px, (min-width: 1024px) 420px, (min-width: 640px) 480px, 100vw"
-                fetchPriority="high"
                 decoding="async"
                 className="h-[332px] w-full object-cover object-top sm:h-[378px] lg:h-[392px] xl:h-[418px] 2xl:h-[432px]"
               />
@@ -233,6 +207,33 @@ export default function Home() {
                 </div>
               </div>
             </div>
+          </div>
+        </motion.div>
+
+        <motion.div
+          variants={itemVariants}
+          initial={shouldReduceMotion ? false : 'hidden'}
+          animate="visible"
+          className="surface-panel relative order-3 overflow-hidden px-3.5 pb-3 pt-3 lg:col-start-1 lg:mt-[1.05rem] lg:flex lg:min-h-[168px] lg:max-w-none lg:flex-col lg:pt-2.5 xl:mt-[1.2rem] xl:min-h-[178px]"
+        >
+          <div className="pointer-events-none absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-[var(--accent-soft)]/70 to-transparent" />
+          <div className="relative grid auto-rows-fr gap-3 sm:grid-cols-2 lg:h-full lg:grid-cols-4 lg:content-stretch">
+            {heroStats.map((stat) => (
+              <motion.div
+                key={stat.label}
+                whileHover={shouldReduceMotion ? undefined : { y: -5, scale: 1.01 }}
+                transition={{ duration: 0.22, ease: 'easeOut' }}
+                className="group grid h-full min-h-[7.15rem] grid-rows-[0.72rem_2rem_minmax(0,1fr)] rounded-[24px] border border-[var(--surface-border)] bg-[linear-gradient(180deg,rgba(255,255,255,0.96),rgba(255,255,255,0.9))] px-3.5 pb-2.5 pt-3 shadow-[0_10px_24px_rgba(15,23,42,0.06)] transition-all duration-300 hover:border-[var(--accent)] hover:shadow-[0_18px_36px_rgba(37,99,235,0.12)] dark:bg-[linear-gradient(180deg,rgba(13,24,41,0.98),rgba(13,24,41,0.92))]"
+              >
+                <div className="mx-auto h-1.5 w-12 self-start rounded-full bg-[var(--accent-soft)] transition-all duration-300 group-hover:w-14 group-hover:bg-[var(--accent)]" />
+                <p className="self-center text-center text-[1.72rem] font-semibold leading-none text-[var(--text)] transition-colors duration-300 group-hover:text-[var(--accent)]">
+                  {stat.value}
+                </p>
+                <p className="mt-1 mx-auto max-w-[12ch] self-start text-center text-[0.85rem] leading-[1.3] text-[var(--muted)] transition-colors duration-300 group-hover:text-[var(--text)]">
+                  {stat.label}
+                </p>
+              </motion.div>
+            ))}
           </div>
         </motion.div>
       </div>

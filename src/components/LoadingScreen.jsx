@@ -8,7 +8,7 @@ export default function LoadingScreen({ onSkip }) {
       className="fixed inset-0 z-[100] flex items-center justify-center overflow-hidden bg-[var(--bg)]"
       initial={{ opacity: 1 }}
       animate={{ opacity: 1 }}
-      exit={{ opacity: 0, transition: { duration: 2, ease: [0.4, 0, 0.2, 1] } }}
+      exit={{ opacity: 0, transition: { duration: 0.55, ease: [0.4, 0, 0.2, 1] } }}
       onClick={onSkip}
     >
       <div className="absolute inset-0">

@@ -110,27 +110,42 @@ img {
 }
 
 @layer components {
-  .content-container {
-    @apply mx-auto w-full max-w-7xl;
+  .layout-with-sidebar {
+    padding-left: 0;
+    padding-right: 0;
   }
 
-  @media (min-width: 1024px) {
-    .content-container {
-      padding-inline: 1.5rem;
+  @media (min-width: 768px) {
+    .layout-with-sidebar {
+      padding-left: 4.5rem;
+      padding-right: 0.5rem;
     }
   }
 
-  @media (min-width: 1280px) {
-    .content-container {
-      padding-inline: 1.75rem;
+  @media (min-width: 1024px) {
+    .layout-with-sidebar {
+      padding-left: 5.25rem;
+      padding-right: 1.25rem;
+    }
+  }
+
+  .content-container {
+    @apply mx-auto w-full max-w-[78rem];
+  }
+
+  @media (min-width: 1280px) and (max-width: 1535px) {
+    main .content-container {
+      max-width: calc(78rem - 2rem);
+      margin-left: 0.75rem;
+      margin-right: auto;
     }
   }
 
   .section-shell {
     position: relative;
     padding-inline: 1rem;
-    padding-top: clamp(3.5rem, 4.5vw, 4.75rem);
-    padding-bottom: clamp(3.25rem, 4vw, 4.5rem);
+    padding-top: clamp(2.8rem, 4vw, 4.6rem);
+    padding-bottom: clamp(2.65rem, 4vw, 4.4rem);
     scroll-margin-top: 4.75rem;
     isolation: isolate;
   }
@@ -159,9 +174,23 @@ img {
     color: var(--text);
   }
 
+  @media (max-width: 639px) {
+    .section-title {
+      font-size: 2rem;
+      line-height: 1.06;
+    }
+  }
+
   .section-copy {
     @apply text-base leading-8 sm:text-lg;
     color: var(--muted);
+  }
+
+  @media (max-width: 639px) {
+    .section-copy {
+      font-size: 0.96rem;
+      line-height: 1.85;
+    }
   }
 
   .surface-panel {
@@ -205,6 +234,15 @@ img {
     background: transparent;
     border: 1px dashed var(--surface-border);
     color: var(--muted);
+  }
+
+  @media (max-width: 639px) {
+    .primary-button,
+    .secondary-button,
+    .ghost-button {
+      width: 100%;
+      min-height: 3.1rem;
+    }
   }
 
   .ghost-button:hover {
@@ -268,6 +306,70 @@ img {
     display: none;
     width: 0;
     height: 0;
+  }
+
+  .skill-category-rail {
+    display: block;
+    max-width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+    touch-action: auto;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(59, 130, 246, 0.45) transparent;
+  }
+
+  .skill-category-rail::-webkit-scrollbar {
+    height: 6px;
+  }
+
+  .skill-category-rail::-webkit-scrollbar-thumb {
+    background-color: rgba(59, 130, 246, 0.45);
+    border-radius: 999px;
+  }
+
+  .skill-category-rail::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  @media (max-width: 1279px) {
+    .skill-category-rail {
+      scrollbar-width: none;
+    }
+
+    .skill-category-rail::-webkit-scrollbar {
+      display: none;
+      height: 0;
+    }
+  }
+
+  .skill-category-card {
+    width: 8.4rem;
+    flex: 0 0 auto;
+    max-width: 8.4rem;
+  }
+
+  @media (min-width: 640px) {
+    .skill-category-card {
+      width: 10.1rem;
+      max-width: 10.1rem;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .skill-category-rail {
+      scrollbar-width: none;
+    }
+
+    .skill-category-rail::-webkit-scrollbar {
+      display: none;
+      height: 0;
+    }
+
+    .skill-category-card {
+      width: auto;
+    }
   }
 }
 

@@ -26,7 +26,7 @@ export default function Navbar({ darkMode, toggleTheme, activeSection }) {
 
     const navHeight = document.querySelector('nav')?.offsetHeight ?? 0;
     const sectionTop = section.getBoundingClientRect().top + window.scrollY;
-    const top = Math.max(sectionTop - navHeight + 28, 0);
+    const top = Math.max(sectionTop - navHeight + 10, 0);
 
     window.scrollTo({ top, behavior: 'smooth' });
   };
@@ -53,12 +53,12 @@ export default function Navbar({ darkMode, toggleTheme, activeSection }) {
 
   return (
     <nav
-      className={`fixed top-0 z-50 w-full px-4 py-4 transition-all duration-300 sm:px-6 lg:px-8 ${
+      className={`layout-with-sidebar fixed top-0 z-50 w-full px-3 py-3 transition-all duration-300 sm:px-6 sm:py-4 lg:px-8 ${
         scrolled ? 'backdrop-blur-xl' : 'backdrop-blur-none'
       }`}
     >
       <div
-        className={`mx-auto flex max-w-7xl items-center justify-between rounded-full border px-4 py-3 shadow-sm transition-all duration-300 sm:px-6 ${
+        className={`content-container flex items-center justify-between rounded-full border px-3.5 py-2.5 shadow-sm transition-all duration-300 sm:px-6 sm:py-3 ${
           scrolled
             ? 'border-[var(--surface-border)] bg-[var(--surface)] shadow-[var(--shadow)]'
             : 'border-transparent bg-transparent shadow-none'
@@ -70,7 +70,7 @@ export default function Navbar({ darkMode, toggleTheme, activeSection }) {
           className="focus:outline-none"
           aria-label="Back to top"
         >
-          <div className="font-mono text-2xl font-semibold tracking-[0.28em] text-[var(--accent)] transition-transform duration-300 hover:scale-[1.02]">
+          <div className="font-mono text-[1.7rem] font-semibold tracking-[0.24em] text-[var(--accent)] transition-transform duration-300 hover:scale-[1.02] sm:text-2xl sm:tracking-[0.28em]">
             &lt;/{profile.initials}&gt;
           </div>
         </button>
@@ -116,7 +116,7 @@ export default function Navbar({ darkMode, toggleTheme, activeSection }) {
 
         <button
           type="button"
-          className="rounded-full border border-[var(--surface-border)] bg-[var(--surface)] px-3 py-1.5 text-2xl text-[var(--text)] transition hover:bg-[var(--surface-strong)] md:hidden"
+          className="rounded-full border border-[var(--surface-border)] bg-[var(--surface)] px-3 py-1.5 text-xl text-[var(--text)] transition hover:bg-[var(--surface-strong)] md:hidden"
           onClick={() => setIsMenuOpen((previous) => !previous)}
           aria-label="Toggle menu"
           aria-expanded={isMenuOpen}
@@ -129,7 +129,7 @@ export default function Navbar({ darkMode, toggleTheme, activeSection }) {
       {isMenuOpen && (
         <div
           id="mobile-navigation"
-          className="absolute right-4 top-[5.5rem] z-50 w-[calc(100%-2rem)] rounded-[28px] border border-[var(--surface-border)] bg-[var(--surface)] p-4 shadow-[var(--shadow)] backdrop-blur-xl sm:right-6 sm:w-80 md:hidden"
+          className="absolute right-3 top-[4.95rem] z-50 w-[calc(100%-1.5rem)] rounded-[24px] border border-[var(--surface-border)] bg-[var(--surface)] p-3.5 shadow-[var(--shadow)] backdrop-blur-xl sm:right-6 sm:top-[5.5rem] sm:w-80 sm:rounded-[28px] sm:p-4 md:hidden"
         >
           <div className="space-y-2">
             {navigationItems.map((item) => {
