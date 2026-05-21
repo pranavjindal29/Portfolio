@@ -116,7 +116,7 @@ export default function Navbar({ darkMode, toggleTheme, activeSection }) {
 
         <button
           type="button"
-          className="rounded-full border border-[var(--surface-border)] bg-[var(--surface)] px-3 py-1.5 text-xl text-[var(--text)] transition hover:bg-[var(--surface-strong)] md:hidden"
+          className="rounded-full border border-[var(--surface-border)] bg-[var(--surface-strong)] px-3 py-1.5 text-xl text-[var(--text)] shadow-[0_6px_18px_rgba(15,23,42,0.12)] transition hover:bg-[var(--surface)] md:hidden dark:shadow-[0_8px_20px_rgba(2,6,23,0.26)]"
           onClick={() => setIsMenuOpen((previous) => !previous)}
           aria-label="Toggle menu"
           aria-expanded={isMenuOpen}
