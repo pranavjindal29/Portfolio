@@ -203,9 +203,9 @@ export const experience = [
     summary:
       'Working on SA 5G core network optimization using Open5GS, OAI, Linux-based testbeds, and SBI-based network-function interactions.',
     highlights: [
-      'Introduced a custom NAS Anchor Function to offload AMF registration handling and reduce AMF processing load by 15%.',
-      'Split the UE registration flow across NAF and AMF, handling AUSF interaction and security mode completion at NAF.',
-      'Performed scalability testing with 512 parallel UEs, observing only a 0.25% increase in registration latency.',
+      'Built a NAS Anchor Function that reduced AMF registration load by 15%.',
+      'Split UE registration across NAF and AMF with AUSF and security handling at NAF.',
+      'Tested 512 parallel UEs with only a 0.25% rise in registration latency.',
     ],
     stack: ['Open5GS', 'OpenAirInterface', '5G Standalone', 'AMF', 'SBI', '6G'],
   },
@@ -217,10 +217,10 @@ export const experience = [
     summary:
       'Worked on ADAS camera calibration, edge vision deployment, and embedded telemetry pipelines for resource-constrained systems.',
     highlights: [
-      'Automated ADAS camera calibration using Depth Anything, reducing manual setup effort by 50%.',
-      'Fine-tuned YOLO models on NVIDIA Jetson for real-time two-wheeler ADAS edge inference.',
-      'Improved detection latency and reliability for ADAS deployment in resource-constrained embedded AI environments.',
-      'Built Raspberry Pi telemetry pipelines for remote CPU, memory, and device-level monitoring.',
+      'Automated ADAS camera calibration with Depth Anything and cut setup effort by 50%.',
+      'Fine-tuned YOLO on NVIDIA Jetson for real-time two-wheeler ADAS inference.',
+      'Improved ADAS latency and reliability on embedded AI hardware.',
+      'Built Raspberry Pi telemetry pipelines for CPU, memory, and device monitoring.',
     ],
     stack: ['Computer Vision', 'Depth Anything', 'YOLO', 'Jetson', 'ADAS'],
   },
@@ -232,10 +232,10 @@ export const experience = [
     summary:
       'Built a Python-based remote-sensing segmentation pipeline focused on lowering manual effort and reducing heavy infrastructure dependency.',
     highlights: [
-      'Built a Python-based satellite image segmentation pipeline, reducing manual annotation effort by 60%.',
-      'Implemented GeoSAM workflows to generate accurate masks and geospatial boundaries from remote sensing data.',
-      'Designed CPU-compatible geospatial processing workflows, reducing dependency on GPUs and GIS-specific tools.',
-      'Processed spatial outputs using Rasterio, Shapely, and Leafmap to support downstream geospatial analysis.',
+      'Built a satellite segmentation pipeline that cut manual annotation effort by 60%.',
+      'Used GeoSAM to generate accurate masks and geospatial boundaries from imagery.',
+      'Designed CPU-friendly geospatial workflows with less GPU and GIS-tool dependence.',
+      'Processed outputs with Rasterio, Shapely, and Leafmap for downstream analysis.',
     ],
     stack: ['Python', 'GeoSAM', 'Rasterio', 'Shapely', 'Leafmap'],
   },
@@ -247,10 +247,10 @@ export const experience = [
     summary:
       'Built production-facing Python ML workflows spanning preprocessing, feature engineering, model training, evaluation, and business reporting.',
     highlights: [
-      'Built Python-based machine learning workflows for data preprocessing, feature engineering, model training, and evaluation.',
-      'Enhanced model performance by 15–20% through data cleaning, tuning, validation, and workflow refinement.',
-      'Created dashboards to monitor business KPIs, model outputs, performance trends, and stakeholder insights.',
-      'Automated recurring analytical reports using reusable Python workflows, reducing manual reporting effort.',
+      'Built Python ML workflows for preprocessing, feature engineering, training, and evaluation.',
+      'Improved model performance by 15–20% through tuning, cleaning, and validation.',
+      'Created dashboards for KPIs, model outputs, and performance trends.',
+      'Automated recurring analytical reports with reusable Python workflows.',
     ],
     stack: ['Python', 'ML Pipelines', 'Data Analysis', 'Dashboards', 'Feature Engineering'],
   },
