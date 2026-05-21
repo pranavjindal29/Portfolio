@@ -17,7 +17,7 @@ export const profile = {
   subheadline: '',
   summary: '',
   availability:
-    'Open to software engineering, machine learning, data, and platform-focused roles at product and finance-led teams.',
+    'Building across software, machine learning, data workflows, and telecom systems.',
 };
 
 export const heroRoles = ['AI Researcher', 'ML Engineer', 'Software Developer'];
@@ -36,7 +36,7 @@ export const heroStrengths = [
 ];
 
 export const aboutParagraphs = [
-  'My work sits at the intersection of software engineering, machine learning, and research-driven problem solving. I enjoy translating complex systems into products that are fast, maintainable, and easy to trust.',
+  'My work sits at the intersection of software engineering, machine learning, and research-led problem solving. I enjoy translating complex systems into products that feel clear, reliable, and easy to trust.',
   'Recently, I have contributed to 5G and 6G core network research at IIT Bombay, traffic analytics and computer vision systems at IIT Roorkee, remote sensing pipelines at DRDO, and production-facing ML delivery at SVGS IT Solutions.',
   'That range has shaped how I approach engineering: start from first principles, measure what matters, keep the UX crisp, and ship solutions that hold up beyond a demo.'
 ];
@@ -196,7 +196,7 @@ export const techStack = [
 
 export const experience = [
   {
-    title: 'Project Research Assistant',
+    title: 'Project Research Associate',
     organization: 'Indian Institute of Technology, Bombay',
     mode: 'On-site',
     period: 'Oct 2025 - Present',

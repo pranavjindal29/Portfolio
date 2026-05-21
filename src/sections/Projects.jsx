@@ -13,8 +13,8 @@ export default function Projects() {
       <div className="content-container relative">
         <SectionHeading
           eyebrow="Projects"
-          title="A tighter selection of shipped work across ML, data engineering, and product workflows."
-          description="Each card stays intentionally brief so the section scans quickly while still covering the full set of highlighted repositories."
+          title="Selected work across ML, data engineering, and product systems."
+          description="A few projects that reflect how I like to build: practical, reliable, and focused on clear outcomes."
           align="center"
         />
 

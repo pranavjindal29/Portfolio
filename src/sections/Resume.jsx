@@ -20,8 +20,8 @@ export default function Resume() {
         <div className="flex flex-col gap-5 sm:gap-6 lg:flex-row lg:items-end lg:justify-between">
           <SectionHeading
             eyebrow="Resume"
-            title="Experience shaped by research, shipping, and applied problem-solving."
-            description="A mix of institute research, computer vision deployment, geospatial tooling, and production-facing ML work."
+            title="Work across research, systems, and applied machine learning."
+            description="From telecom networks and computer vision to geospatial pipelines and software delivery."
           />
 
           <Reveal className="w-full sm:w-auto">
@@ -145,7 +145,7 @@ export default function Resume() {
                 <article className="surface-panel p-5 sm:p-6">
                   <div className="flex items-center gap-2 text-[var(--accent)]">
                     <Sparkles size={16} />
-                    <span className="meta-label !text-[var(--accent)]">Highlight</span>
+                    <span className="meta-label !text-[var(--accent)]">Leadership</span>
                   </div>
                   <h4 className="mt-4 text-lg font-semibold text-[var(--text)]">{highlight.title}</h4>
                   <p className="mt-3 text-sm leading-7 text-[var(--muted)]">{highlight.description}</p>

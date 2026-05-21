@@ -87,8 +87,8 @@ export default function Contact() {
       <div className="content-container relative">
         <SectionHeading
           eyebrow="Contact"
-          title="Let’s talk about building thoughtful products and strong engineering teams."
-          description="If you’re hiring for software, ML, data, or platform work, I’d be happy to connect. The form below now sends directly to my inbox."
+          title="If my work resonates with you, I’d be glad to connect."
+          description="Whether it’s software, ML systems, data work, or research-driven builds, feel free to reach out through the form below."
         />
 
         <div className="mt-10 grid items-stretch gap-5 sm:mt-12 sm:gap-6 xl:grid-cols-[380px_minmax(0,1fr)]">
@@ -96,12 +96,11 @@ export default function Contact() {
             <article className="surface-panel flex h-full flex-col p-5 sm:p-7">
               <span className="section-eyebrow">Get In Touch</span>
               <h3 className="mt-4 text-2xl font-semibold text-[var(--text)]">
-                Open to strong engineering conversations.
+                Always happy to connect.
               </h3>
               <p className="mt-4 text-sm leading-7 text-[var(--muted)]">
-                I am currently open to software engineering, machine learning, data, and platform opportunities.
-                If you are hiring for teams that value solid execution, product thinking, and dependable problem
-                solving, I would be glad to connect.
+                I enjoy conversations around software, ML systems, data work, and research-led builds.
+                If something here connects with what you are working on, feel free to reach out.
               </p>
 
               <div className="mt-8 space-y-3">
@@ -165,7 +164,7 @@ export default function Contact() {
                   value={formData.company}
                   onChange={handleChange}
                   className="input-field mt-2"
-                  placeholder="Team or company"
+                  placeholder="Team, studio, or organization"
                 />
               </label>
 
@@ -189,7 +188,7 @@ export default function Contact() {
                   rows="6"
                   required
                   className="input-field mt-2 min-h-[180px] resize-none"
-                  placeholder="Tell me a little about the role, team, or project."
+                  placeholder="Tell me a little about what you would like to discuss."
                 />
               </label>
 
@@ -209,7 +208,7 @@ export default function Contact() {
 
               <div className="mt-auto flex flex-col gap-3 pt-6 sm:flex-row sm:items-center sm:justify-between">
                 <p className="text-sm leading-7 text-[var(--muted)]">
-                  Messages are submitted securely through the site and delivered directly to my inbox.
+                  Messages sent here go straight to my inbox.
                 </p>
                 <button
                   type="submit"

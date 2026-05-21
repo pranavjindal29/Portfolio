@@ -52,19 +52,19 @@ export default function About() {
   const snapshotItems = [
     {
       label: 'Current role',
-      value: 'Research Assistant, IIT Bombay',
+      value: 'Project Research Associate, IIT Bombay',
     },
     {
       label: 'Core focus',
-      value: 'Software engineering, ML systems, product-facing execution',
+      value: 'Software engineering, ML systems, and telecom infrastructure',
     },
     {
       label: 'Location',
       value: profile.location,
     },
     {
-      label: 'Open to',
-      value: 'SDE, ML, data, and platform roles',
+      label: 'Currently exploring',
+      value: 'Software, data, ML systems, and telecom-led builds',
     },
   ];
   const overviewTags = ['Software', 'ML Systems', 'Research'];
@@ -138,8 +138,8 @@ export default function About() {
       <div className="content-container">
         <SectionHeading
           eyebrow="About"
-          title="Engineering with depth, polish, and a strong bias for clarity."
-          description="I like building products that balance rigorous systems underneath with clean, considered execution on the surface."
+          title="Engineering with depth, clarity, and care."
+          description="I build systems that stay rigorous underneath and feel simple on the surface."
         />
 
         <div className="mt-10 grid items-start gap-5 sm:mt-11 sm:gap-6 xl:grid-cols-[minmax(0,1.08fr)_320px]">
