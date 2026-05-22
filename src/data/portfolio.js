@@ -3,7 +3,7 @@ export const navigationItems = ['Home', 'About', 'Resume', 'Projects', 'Contact'
 export const profile = {
   name: 'Pranav Jindal',
   initials: 'PJ',
-  role: 'Software Engineer',
+  role: 'AI & ML Engineer',
   location: 'Mumbai, India',
   email: 'jindalpranav944@gmail.com',
   phone: '+91 7093702160',
@@ -61,9 +61,7 @@ export const techStack = [
     category: 'Frontend',
     description: 'Responsive interface work across web and mobile, shaped around clean structure and polished implementation.',
     skills: [
-      { name: 'Android', icon: 'simple-icons:android' },
       { name: 'CSS', icon: 'skill-icons:css' },
-      { name: 'Flutter', icon: 'logos:flutter' },
       { name: 'HTML', icon: 'vscode-icons:file-type-html' },
       { name: 'JavaScript', icon: 'logos:javascript' },
       { name: 'React', icon: 'logos:react' },
