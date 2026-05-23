@@ -88,7 +88,7 @@ function App() {
       return undefined;
     }
 
-    const timer = window.setTimeout(dismissLoader, 1100);
+    const timer = window.setTimeout(dismissLoader, 2000);
     const handleKeydown = (event) => {
       if (event.key === 'Escape') {
         dismissLoader();
@@ -112,71 +112,34 @@ function App() {
   }, [isLoading]);
 
   useEffect(() => {
-    const elements = sectionIds.map((id) => document.getElementById(id)).filter(Boolean);
-
-    if (!elements.length) {
-      return undefined;
-    }
-
-    if (!('IntersectionObserver' in window)) {
-      const updateActiveSection = () => {
-        let currentSection = 'home';
-
-        sectionIds.forEach((id) => {
-          const element = document.getElementById(id);
-
-          if (element && window.scrollY >= element.offsetTop - 220) {
-            currentSection = id;
-          }
-        });
-
-        setActiveSection(currentSection);
-      };
-
-      updateActiveSection();
-      window.addEventListener('scroll', updateActiveSection, { passive: true });
-      window.addEventListener('resize', updateActiveSection);
-
-      return () => {
-        window.removeEventListener('scroll', updateActiveSection);
-        window.removeEventListener('resize', updateActiveSection);
-      };
-    }
-
-    const visibleSections = new Set();
-
     const resolveActiveSection = () => {
-      const nextVisible = [...sectionIds].reverse().find((id) => visibleSections.has(id));
+      const navHeight = document.querySelector('nav')?.offsetHeight ?? 0;
+      const viewportProbe = navHeight + window.innerHeight * 0.32;
+      let currentSection = 'home';
 
-      setActiveSection((current) =>
-        nextVisible ?? (window.scrollY < window.innerHeight * 0.45 ? 'home' : current)
-      );
+      sectionIds.forEach((id) => {
+        const element = document.getElementById(id);
+
+        if (!element) {
+          return;
+        }
+
+        const { top } = element.getBoundingClientRect();
+
+        if (top <= viewportProbe) {
+          currentSection = id;
+        }
+      });
+
+      setActiveSection(currentSection);
     };
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            visibleSections.add(entry.target.id);
-          } else {
-            visibleSections.delete(entry.target.id);
-          }
-        });
-
-        resolveActiveSection();
-      },
-      {
-        rootMargin: '-22% 0px -55% 0px',
-        threshold: 0,
-      }
-    );
-
-    elements.forEach((element) => observer.observe(element));
-    window.addEventListener('resize', resolveActiveSection);
     resolveActiveSection();
+    window.addEventListener('scroll', resolveActiveSection, { passive: true });
+    window.addEventListener('resize', resolveActiveSection);
 
     return () => {
-      observer.disconnect();
+      window.removeEventListener('scroll', resolveActiveSection);
       window.removeEventListener('resize', resolveActiveSection);
     };
   }, []);

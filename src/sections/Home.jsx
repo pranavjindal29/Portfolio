@@ -30,6 +30,11 @@ export default function Home() {
   const [roleIndex, setRoleIndex] = useState(0);
   const [typedRole, setTypedRole] = useState(heroRoles[0]);
   const shouldReduceMotion = useReducedMotion();
+  const longestRole = heroRoles.reduce(
+    (longest, role) => (role.length > longest.length ? role : longest),
+    heroRoles[0]
+  );
+  const shouldTypeRole = !shouldReduceMotion;
 
   useEffect(() => {
     if (shouldReduceMotion) {
@@ -46,8 +51,8 @@ export default function Home() {
   const currentRole = shouldReduceMotion ? heroRoles[0] : heroRoles[roleIndex];
 
   useEffect(() => {
-    if (shouldReduceMotion) {
-      setTypedRole(heroRoles[0]);
+    if (!shouldTypeRole) {
+      setTypedRole(currentRole);
       return undefined;
     }
 
@@ -66,7 +71,7 @@ export default function Home() {
     }, 70);
 
     return () => window.clearInterval(typing);
-  }, [roleIndex, shouldReduceMotion]);
+  }, [currentRole, roleIndex, shouldTypeRole]);
 
   const scrollToSection = (id) => {
     const section = document.getElementById(id);
@@ -94,14 +99,14 @@ export default function Home() {
         <div className="absolute bottom-[14%] right-[8%] h-72 w-72 rounded-full bg-cyan-400/10 blur-3xl dark:bg-cyan-300/10" />
       </div>
 
-      <div className="content-container grid gap-4 lg:grid-cols-[minmax(0,1.02fr)_408px] lg:items-start lg:gap-x-3 lg:gap-y-2 xl:grid-cols-[minmax(0,1fr)_428px] xl:gap-x-4 xl:gap-y-2.5 2xl:grid-cols-[minmax(0,0.98fr)_444px]">
+      <div className="content-container grid gap-4 lg:grid-cols-[minmax(0,1.02fr)_408px] lg:items-start lg:gap-x-3 lg:gap-y-2 xl:grid-cols-[minmax(0,1fr)_428px] xl:gap-x-4 xl:gap-y-2.5 2xl:grid-cols-[minmax(0,1.02fr)_500px] min-[1920px]:grid-cols-[minmax(0,1.08fr)_560px] min-[1920px]:gap-x-8">
         <motion.div
           className="relative z-10 order-1 flex h-full min-w-0 flex-col gap-4 lg:-mt-1 lg:gap-2"
           variants={containerVariants}
           initial={shouldReduceMotion ? false : 'hidden'}
           animate="visible"
         >
-          <div className="space-y-4 sm:space-y-5 lg:max-w-[41.25rem] lg:space-y-4 xl:max-w-[42.25rem]">
+          <div className="space-y-4 sm:space-y-5 lg:max-w-[41.25rem] lg:space-y-4 xl:max-w-[42.25rem] 2xl:max-w-[47rem] min-[1920px]:max-w-[52rem]">
             <motion.span
               variants={itemVariants}
               whileHover={shouldReduceMotion ? undefined : { y: -2, scale: 1.01 }}
@@ -121,19 +126,26 @@ export default function Home() {
 
             <motion.div
               variants={itemVariants}
-              className="flex min-h-[1.6rem] flex-wrap items-center gap-3.5 text-sm uppercase tracking-[0.32em] text-[var(--muted)] sm:flex-nowrap"
+              className="flex min-h-[1.6rem] max-w-full flex-nowrap items-center gap-2 overflow-hidden text-[10px] uppercase tracking-[0.18em] text-[var(--muted)] sm:gap-3.5 sm:text-sm sm:tracking-[0.32em]"
             >
-              <span>Now shipping as</span>
-              <span className="h-px w-10 bg-[var(--surface-border)]" />
-              <span className="font-mono text-[var(--accent)]">
-                <span className="inline-flex w-[20ch] items-center whitespace-nowrap">
-                  {shouldReduceMotion ? (
-                    <span>{currentRole}</span>
+              <span className="shrink-0 leading-none">Now shipping as</span>
+              <span aria-hidden="true" className="shrink-0 text-[var(--surface-border)] sm:hidden">
+                --
+              </span>
+              <span className="hidden h-px w-10 bg-[var(--surface-border)] sm:block" />
+              <span className="font-mono text-[10px] uppercase leading-none tracking-[0.2em] text-[var(--accent)] sm:text-sm sm:tracking-[0.32em]">
+                <span className="relative inline-flex min-h-[1.3rem] w-[18ch] max-w-full items-center whitespace-nowrap sm:w-[20ch]">
+                  <span className="invisible">
+                    {longestRole}
+                    {!shouldReduceMotion ? '|' : ''}
+                  </span>
+                  {!shouldTypeRole ? (
+                    <span className="absolute inset-0 flex items-center">{currentRole}</span>
                   ) : (
-                    <>
+                    <span className="absolute inset-0 flex items-center">
                       <span>{typedRole}</span>
                       <span className="ml-1 animate-blink">|</span>
-                    </>
+                    </span>
                   )}
                 </span>
               </span>
@@ -159,7 +171,7 @@ export default function Home() {
           initial={shouldReduceMotion ? false : { opacity: 0, y: 28 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.75, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
-          className="relative z-10 order-2 min-w-0 w-full lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:max-w-[444px] lg:justify-self-end lg:-mt-[0.75rem] xl:max-w-[460px] xl:-mt-[1rem]"
+          className="relative z-10 order-2 min-w-0 w-full lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:max-w-[444px] lg:justify-self-end lg:-mt-[0.75rem] xl:max-w-[460px] xl:-mt-[1rem] 2xl:max-w-[520px] min-[1920px]:max-w-[580px]"
         >
           <div className="surface-panel relative flex h-full min-w-0 flex-col overflow-hidden p-4 sm:p-4.5">
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(96,165,250,0.22),transparent_38%)]" />
@@ -171,7 +183,7 @@ export default function Home() {
                 height="1200"
                 sizes="(min-width: 1536px) 456px, (min-width: 1280px) 440px, (min-width: 1024px) 420px, (min-width: 640px) 480px, 100vw"
                 decoding="async"
-                className="h-[332px] w-full object-cover object-top sm:h-[378px] lg:h-[392px] xl:h-[418px] 2xl:h-[432px]"
+                className="h-[332px] w-full object-cover object-top sm:h-[378px] lg:h-[392px] xl:h-[418px] 2xl:h-[470px] min-[1920px]:h-[520px]"
               />
             </div>
             <div className="relative mt-3 grid gap-3 lg:mt-2.5 lg:gap-2">

@@ -4,6 +4,19 @@ import SectionHeading from '../components/SectionHeading';
 import { projects } from '../data/portfolio';
 
 export default function Projects() {
+  const openExternal = (url) => {
+    window.open(url, '_blank', 'noopener,noreferrer');
+  };
+
+  const handleCardKeyDown = (event, url) => {
+    if (event.key !== 'Enter' && event.key !== ' ') {
+      return;
+    }
+
+    event.preventDefault();
+    openExternal(url);
+  };
+
   return (
     <section id="projects" className="section-shell scroll-mt-6 lg:scroll-mt-8">
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
@@ -18,10 +31,17 @@ export default function Projects() {
           align="center"
         />
 
-        <div className="mt-10 grid gap-4 sm:mt-12 sm:grid-cols-2 xl:grid-cols-3">
+        <div className="mt-10 grid gap-4 sm:mt-12 sm:grid-cols-2 xl:grid-cols-3 2xl:gap-5 min-[1920px]:gap-6">
           {projects.map((project, index) => (
             <Reveal key={project.title} delay={index * 0.06}>
-              <article className="group surface-panel flex h-full flex-col overflow-hidden p-5 transition-all duration-300 hover:-translate-y-1.5 hover:border-[var(--accent)] hover:shadow-[0_24px_50px_rgba(37,99,235,0.14)] sm:p-6">
+              <article
+                role="link"
+                tabIndex={0}
+                aria-label={`${project.title} GitHub repository`}
+                onClick={() => openExternal(project.github)}
+                onKeyDown={(event) => handleCardKeyDown(event, project.github)}
+                className="group surface-panel flex h-full cursor-pointer flex-col overflow-hidden p-5 transition-all duration-300 hover:-translate-y-1.5 hover:border-[var(--accent)] hover:shadow-[0_24px_50px_rgba(37,99,235,0.14)] focus-visible:border-[var(--accent)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]/40 sm:p-6"
+              >
                 <div className="flex items-start justify-between gap-3">
                   <span className="section-eyebrow">{project.category}</span>
                   <span className="font-mono text-xs uppercase tracking-[0.3em] text-[var(--muted)]">
@@ -51,6 +71,7 @@ export default function Projects() {
                     href={project.github}
                     target="_blank"
                     rel="noopener noreferrer"
+                    onClick={(event) => event.stopPropagation()}
                     className="inline-flex items-center gap-2 rounded-full border border-[var(--surface-border)] bg-[var(--surface-strong)] px-4 py-2.5 text-sm font-semibold text-[var(--text)] transition hover:border-[var(--accent)] hover:text-[var(--accent)]"
                   >
                     <Github size={16} />
@@ -63,6 +84,7 @@ export default function Projects() {
                       href={project.live}
                       target="_blank"
                       rel="noopener noreferrer"
+                      onClick={(event) => event.stopPropagation()}
                       className="inline-flex items-center gap-2 rounded-full border border-[var(--surface-border)] bg-transparent px-4 py-2.5 text-sm font-semibold text-[var(--muted)] transition hover:border-[var(--accent)] hover:text-[var(--accent)]"
                     >
                       <ExternalLink size={16} />

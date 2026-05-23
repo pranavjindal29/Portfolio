@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Moon, Sun } from 'lucide-react';
+import { Code2, Github, Linkedin, Moon, Sun } from 'lucide-react';
 import { navigationItems, profile } from '../data/portfolio';
 
 export default function Navbar({ darkMode, toggleTheme, activeSection }) {
@@ -60,8 +60,8 @@ export default function Navbar({ darkMode, toggleTheme, activeSection }) {
       <div
         className={`content-container flex items-center justify-between rounded-full border px-3.5 py-2.5 shadow-sm transition-all duration-300 sm:px-6 sm:py-3 ${
           scrolled
-            ? 'border-[var(--surface-border)] bg-[var(--surface)] shadow-[var(--shadow)]'
-            : 'border-transparent bg-transparent shadow-none'
+            ? 'border-[var(--surface-border)] bg-[rgba(255,255,255,0.96)] shadow-[var(--shadow)] dark:bg-[rgba(7,16,29,0.98)]'
+            : 'border-[var(--surface-border)] bg-[rgba(255,255,255,0.96)] shadow-[0_10px_28px_rgba(15,23,42,0.08)] dark:bg-[rgba(7,16,29,0.98)] dark:shadow-[0_12px_32px_rgba(2,6,23,0.24)] md:border-transparent md:bg-transparent md:shadow-none'
         }`}
       >
         <button
@@ -129,7 +129,7 @@ export default function Navbar({ darkMode, toggleTheme, activeSection }) {
       {isMenuOpen && (
         <div
           id="mobile-navigation"
-          className="absolute right-3 top-[4.95rem] z-50 w-[calc(100%-1.5rem)] rounded-[24px] border border-[var(--surface-border)] bg-[var(--surface)] p-3.5 shadow-[var(--shadow)] backdrop-blur-xl sm:right-6 sm:top-[5.5rem] sm:w-80 sm:rounded-[28px] sm:p-4 md:hidden"
+          className="absolute right-3 top-[4.95rem] z-50 w-[calc(100%-1.5rem)] rounded-[24px] border border-[var(--surface-border)] bg-[rgba(255,255,255,0.98)] p-3.5 shadow-[0_20px_40px_rgba(15,23,42,0.14)] dark:bg-[rgba(7,16,29,0.99)] dark:shadow-[0_24px_44px_rgba(2,6,23,0.32)] sm:right-6 sm:top-[5.5rem] sm:w-80 sm:rounded-[28px] sm:p-4 md:hidden"
         >
           <div className="space-y-2">
             {navigationItems.map((item) => {
@@ -165,6 +165,36 @@ export default function Navbar({ darkMode, toggleTheme, activeSection }) {
             <span>Switch appearance</span>
             {darkMode ? <Sun size={16} /> : <Moon size={16} />}
           </button>
+
+          <div className="mt-4 flex items-center justify-center gap-3 border-t border-[var(--surface-border)] pt-4">
+            <a
+              href={profile.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="GitHub"
+              className="flex h-11 w-11 items-center justify-center rounded-full border border-[var(--surface-border)] bg-[var(--surface-strong)] text-[var(--text)] shadow-sm transition hover:border-[var(--accent)] hover:text-[var(--accent)]"
+            >
+              <Github size={18} />
+            </a>
+            <a
+              href={profile.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="LinkedIn"
+              className="flex h-11 w-11 items-center justify-center rounded-full border border-[var(--surface-border)] bg-[var(--surface-strong)] text-[var(--text)] shadow-sm transition hover:border-[var(--accent)] hover:text-[var(--accent)]"
+            >
+              <Linkedin size={18} />
+            </a>
+            <a
+              href={profile.leetcode}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="LeetCode"
+              className="flex h-11 w-11 items-center justify-center rounded-full border border-[var(--surface-border)] bg-[var(--surface-strong)] text-[var(--text)] shadow-sm transition hover:border-[var(--accent)] hover:text-[var(--accent)]"
+            >
+              <Code2 size={18} />
+            </a>
+          </div>
         </div>
       )}
     </nav>

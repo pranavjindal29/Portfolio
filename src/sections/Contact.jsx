@@ -1,8 +1,14 @@
 import { useState } from 'react';
-import { ArrowRight, Mail, Phone } from 'lucide-react';
+import { ArrowRight, Code2, Github, Linkedin, Mail, Phone } from 'lucide-react';
 import Reveal from '../components/Reveal';
 import SectionHeading from '../components/SectionHeading';
-import { profile } from '../data/portfolio';
+import { profile, socialLinks } from '../data/portfolio';
+
+const socialIconMap = {
+  GitHub: Github,
+  LinkedIn: Linkedin,
+  LeetCode: Code2,
+};
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -14,6 +20,30 @@ export default function Contact() {
   });
   const [submissionState, setSubmissionState] = useState({ status: 'idle', message: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [copyState, setCopyState] = useState({ type: '', message: '' });
+
+  const externalLinks = socialLinks.filter((link) => link.href);
+
+  const handleCopy = async (type, value) => {
+    try {
+      await navigator.clipboard.writeText(value);
+      setCopyState({
+        type,
+        message: type === 'Mail' ? 'Email copied to clipboard' : 'Phone number copied to clipboard',
+      });
+      window.setTimeout(() => {
+        setCopyState((current) => (current.type === type ? { type: '', message: '' } : current));
+      }, 1800);
+    } catch (error) {
+      setCopyState({
+        type,
+        message: type === 'Mail' ? 'Unable to copy email right now' : 'Unable to copy phone number right now',
+      });
+      window.setTimeout(() => {
+        setCopyState((current) => (current.type === type ? { type: '', message: '' } : current));
+      }, 1800);
+    }
+  };
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -79,7 +109,7 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="section-shell scroll-mt-6 lg:scroll-mt-8">
+    <section id="contact" className="section-shell scroll-mt-6 pt-2 pb-5 lg:scroll-mt-8 lg:pt-3 lg:pb-6">
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <div className="absolute bottom-0 left-[12%] h-48 w-48 rounded-full bg-cyan-400/10 blur-3xl dark:bg-sky-300/12" />
       </div>
@@ -89,12 +119,14 @@ export default function Contact() {
           eyebrow="Contact"
           title="If my work resonates with you, I’d be glad to connect."
           description="Whether it’s software, ML systems, data work, or research-driven builds, feel free to reach out through the form below."
+          className="max-w-none"
+          descriptionClassName="xl:whitespace-nowrap xl:text-[0.98rem] 2xl:text-[1rem]"
         />
 
-        <div className="mt-10 grid items-stretch gap-5 sm:mt-12 sm:gap-6 xl:grid-cols-[380px_minmax(0,1fr)]">
+        <div className="mt-3 grid items-stretch gap-5 sm:mt-4 sm:gap-6 xl:grid-cols-[380px_minmax(0,1fr)] 2xl:grid-cols-[420px_minmax(0,1fr)] min-[1920px]:grid-cols-[450px_minmax(0,1fr)]">
           <Reveal className="h-full">
             <article className="surface-panel flex h-full flex-col p-5 sm:p-7">
-              <span className="section-eyebrow">Get In Touch</span>
+              <span className="section-eyebrow w-fit self-start">Get In Touch</span>
               <h3 className="mt-4 text-2xl font-semibold text-[var(--text)]">
                 Always happy to connect.
               </h3>
@@ -103,28 +135,71 @@ export default function Contact() {
                 If something here connects with what you are working on, feel free to reach out.
               </p>
 
-              <div className="mt-8 space-y-3">
-                <a
-                  href={`mailto:${profile.email}`}
-                  className="flex flex-col items-start gap-2 rounded-[20px] border border-[var(--surface-border)] bg-[var(--surface-strong)] px-4 py-4 text-sm text-[var(--text)] transition hover:border-[var(--accent)] hover:text-[var(--accent)] sm:flex-row sm:items-center sm:justify-between sm:gap-4 sm:rounded-[22px]"
-                >
-                  <span className="flex items-center gap-3">
-                    <Mail size={16} />
-                    <span>Email</span>
-                  </span>
-                  <span className="break-all text-left text-xs text-[var(--muted)] sm:text-right sm:text-sm">{profile.email}</span>
-                </a>
-
-                <a
-                  href={`tel:${profile.phone}`}
-                  className="flex flex-col items-start gap-2 rounded-[20px] border border-[var(--surface-border)] bg-[var(--surface-strong)] px-4 py-4 text-sm text-[var(--text)] transition hover:border-[var(--accent)] hover:text-[var(--accent)] sm:flex-row sm:items-center sm:justify-between sm:gap-4 sm:rounded-[22px]"
+              <div className="mt-10 space-y-4 xl:mt-auto xl:pt-8">
+                <button
+                  type="button"
+                  onClick={() => handleCopy('Mobile', profile.phone)}
+                  className="flex h-[4.75rem] w-full items-center justify-between gap-3 rounded-[20px] border border-[var(--surface-border)] bg-[var(--surface-strong)] px-4 py-3.5 text-sm text-[var(--text)] transition hover:border-[var(--accent)] hover:text-[var(--accent)] sm:rounded-[22px]"
+                  aria-label="Copy phone number"
                 >
                   <span className="flex items-center gap-3">
                     <Phone size={16} />
                     <span>Phone</span>
                   </span>
-                  <span className="text-left text-xs text-[var(--muted)] sm:text-right sm:text-sm">{profile.phone}</span>
-                </a>
+                  <span className="max-w-[58%] truncate text-right text-xs text-[var(--muted)] sm:text-sm">
+                    {profile.phone}
+                  </span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => handleCopy('Mail', profile.email)}
+                  className="flex h-[4.75rem] w-full items-center justify-between gap-3 rounded-[20px] border border-[var(--surface-border)] bg-[var(--surface-strong)] px-4 py-3.5 text-sm text-[var(--text)] transition hover:border-[var(--accent)] hover:text-[var(--accent)] sm:rounded-[22px]"
+                  aria-label="Copy email address"
+                >
+                  <span className="flex items-center gap-3">
+                    <Mail size={16} />
+                    <span>Email</span>
+                  </span>
+                  <span className="max-w-[58%] truncate text-right text-xs text-[var(--muted)] sm:text-sm">
+                    {profile.email}
+                  </span>
+                </button>
+              </div>
+
+              {copyState.message ? (
+                <div
+                  className={`mt-4 rounded-2xl border px-4 py-3 text-sm leading-6 ${
+                    copyState.message.startsWith('Unable')
+                      ? 'border-rose-500/30 bg-rose-500/10 text-rose-700 dark:text-rose-300'
+                      : 'border-emerald-500/30 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300'
+                  }`}
+                  role="status"
+                  aria-live="polite"
+                >
+                  {copyState.message}
+                </div>
+              ) : null}
+
+              <div className="mt-5 grid gap-2.5 md:hidden">
+                <div className="flex items-center justify-center gap-4 rounded-[20px] border border-[var(--surface-border)] bg-[var(--surface)] px-4 py-3.5">
+                  {externalLinks.map((link) => {
+                    const IconComponent = socialIconMap[link.name];
+
+                    return (
+                      <a
+                        key={link.name}
+                        href={link.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={link.name}
+                        className="flex h-11 w-11 items-center justify-center rounded-full border border-[var(--surface-border)] bg-[var(--surface-strong)] text-[var(--text)] shadow-sm transition hover:border-[var(--accent)] hover:text-[var(--accent)]"
+                      >
+                        <IconComponent size={18} />
+                      </a>
+                    );
+                  })}
+                </div>
               </div>
             </article>
           </Reveal>
@@ -185,9 +260,9 @@ export default function Contact() {
                   name="message"
                   value={formData.message}
                   onChange={handleChange}
-                  rows="6"
+                  rows="3"
                   required
-                  className="input-field mt-2 min-h-[180px] resize-none"
+                  className="input-field mt-2 min-h-[118px] resize-none xl:min-h-[82px]"
                   placeholder="Tell me a little about what you would like to discuss."
                 />
               </label>
@@ -206,7 +281,7 @@ export default function Contact() {
                 </div>
               ) : null}
 
-              <div className="mt-auto flex flex-col gap-3 pt-6 sm:flex-row sm:items-center sm:justify-between">
+              <div className="mt-auto flex flex-col gap-3 pt-4 sm:flex-row sm:items-center sm:justify-between">
                 <p className="text-sm leading-7 text-[var(--muted)]">
                   Messages sent here go straight to my inbox.
                 </p>

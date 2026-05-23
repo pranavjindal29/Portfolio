@@ -11,7 +11,7 @@ import {
 
 export default function Resume() {
   return (
-    <section id="resume" className="section-shell scroll-mt-6 lg:scroll-mt-8">
+    <section id="resume" className="section-shell scroll-mt-6 pt-2 lg:scroll-mt-8 lg:pt-3">
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <div className="absolute right-[8%] top-8 h-44 w-44 rounded-full bg-emerald-400/10 blur-3xl dark:bg-sky-300/10" />
       </div>
@@ -32,7 +32,7 @@ export default function Resume() {
           </Reveal>
         </div>
 
-        <div className="mt-10 grid gap-5 sm:mt-12 sm:gap-6 xl:grid-cols-[minmax(0,1.35fr)_380px]">
+        <div className="mt-10 grid gap-5 sm:mt-12 sm:gap-6 xl:grid-cols-[minmax(0,1.35fr)_380px] 2xl:grid-cols-[minmax(0,1.42fr)_420px] min-[1920px]:grid-cols-[minmax(0,1.5fr)_450px]">
           <div className="space-y-4 sm:space-y-5">
             {experience.map((item, index) => (
               <Reveal key={`${item.organization}-${item.title}`} delay={index * 0.06}>
@@ -87,7 +87,7 @@ export default function Resume() {
                     >
                       <h3 className="text-base font-semibold text-[var(--text)] sm:text-lg">{item.institution}</h3>
                       <p className="mt-1 text-sm leading-7 text-[var(--muted)]">{item.credential}</p>
-                      <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                      <div className="mt-4 grid grid-cols-2 gap-3">
                         <div>
                           <p className="meta-label">Timeline</p>
                           <p className="mt-1 text-sm text-[var(--text)]">{item.period}</p>
@@ -117,7 +117,7 @@ export default function Resume() {
                     >
                       <h4 className="text-base font-semibold text-[var(--text)]">{item.title}</h4>
                       <p className="mt-1 text-sm font-medium text-[var(--muted)]">{item.issuer}</p>
-                      <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                      <div className="mt-4 grid grid-cols-2 gap-3">
                         <div>
                           <p className="meta-label">Issued</p>
                           <p className="mt-1 text-sm text-[var(--text)]">{item.issued}</p>

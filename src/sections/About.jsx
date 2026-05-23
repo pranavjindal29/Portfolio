@@ -1,9 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
-import { Icon } from '@iconify/react';
 import {
   ArrowUpRight,
-  ChevronLeft,
-  ChevronRight,
   BrainCircuit,
   BriefcaseBusiness,
   Cloud,
@@ -19,6 +16,7 @@ import {
 import Reveal from '../components/Reveal';
 import SectionHeading from '../components/SectionHeading';
 import { aboutParagraphs, focusAreas, profile, techStack } from '../data/portfolio';
+import { Icon } from '../lib/iconify';
 
 const focusIcons = [LayoutPanelTop, BrainCircuit, ShieldCheck];
 const snapshotIcons = [BriefcaseBusiness, BrainCircuit, MapPin, Sparkles];
@@ -26,9 +24,8 @@ const stackIcons = {
   Frontend: LayoutPanelTop,
   Programming: Code2,
   'Backend & Systems': Wrench,
-  'Data Engineering': Database,
+  'Data Science & Engineering': Database,
   'AI / ML': BrainCircuit,
-  'Data Science': Database,
   'Model Evaluation': Gauge,
   'Cloud & DevOps': Cloud,
   'Telecom & Networking': ShieldCheck,
@@ -122,17 +119,6 @@ export default function About() {
     };
   }, []);
 
-  const scrollSkillRail = (direction) => {
-    const element = stackListRef.current;
-
-    if (!element) {
-      return;
-    }
-
-    const distance = Math.max(element.clientWidth * 0.72, 140) * direction;
-    element.scrollBy({ left: distance, behavior: 'smooth' });
-  };
-
   return (
     <section id="about" className="section-shell scroll-mt-20 pt-4 sm:scroll-mt-24 sm:pt-5 lg:scroll-mt-24 lg:pt-6">
       <div className="content-container">
@@ -142,7 +128,7 @@ export default function About() {
           description="I build systems that stay rigorous underneath and feel simple on the surface."
         />
 
-        <div className="mt-10 grid items-start gap-5 sm:mt-11 sm:gap-6 xl:grid-cols-[minmax(0,1.08fr)_320px]">
+        <div className="mt-10 grid items-start gap-5 sm:mt-11 sm:gap-6 xl:grid-cols-[minmax(0,1.08fr)_320px] 2xl:grid-cols-[minmax(0,1.1fr)_360px] min-[1920px]:grid-cols-[minmax(0,1.16fr)_390px]">
           <Reveal className="surface-panel h-full overflow-hidden p-0">
             <div className="relative h-full p-5 sm:p-7">
               <div className="pointer-events-none absolute inset-x-0 top-0 h-36 bg-[linear-gradient(180deg,rgba(37,99,235,0.14),rgba(37,99,235,0.04),transparent)]" />
@@ -238,33 +224,12 @@ export default function About() {
               <span className="section-eyebrow">Skills &amp; Technologies</span>
             </div>
 
-            <div className="relative grid gap-3 sm:gap-4 xl:grid-cols-[346px_minmax(0,1fr)] xl:items-stretch">
-              <div className="min-w-0 self-start overflow-hidden rounded-[24px] border border-[var(--surface-border)] bg-[rgba(255,255,255,0.78)] p-2.5 shadow-[inset_0_1px_0_rgba(255,255,255,0.32)] backdrop-blur-[2px] sm:p-3.5 xl:flex xl:h-[27.15rem] xl:flex-col xl:p-[0.6rem] dark:bg-[rgba(13,24,41,0.82)]">
-                <div className="flex items-start justify-end gap-3 pb-2 xl:hidden">
-                  <div className="flex items-center gap-2 xl:hidden">
-                    <button
-                      type="button"
-                      onClick={() => scrollSkillRail(-1)}
-                      className="flex h-9 w-9 items-center justify-center rounded-full border border-[var(--surface-border)] bg-[var(--surface)] text-[var(--muted)]"
-                      aria-label="Scroll skill categories left"
-                    >
-                      <ChevronLeft size={16} />
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => scrollSkillRail(1)}
-                      className="flex h-9 w-9 items-center justify-center rounded-full border border-[var(--surface-border)] bg-[var(--surface)] text-[var(--muted)]"
-                      aria-label="Scroll skill categories right"
-                    >
-                      <ChevronRight size={16} />
-                    </button>
-                  </div>
-                </div>
-
+            <div className="relative grid gap-3 sm:gap-4 xl:grid-cols-[346px_minmax(0,1fr)] xl:items-stretch 2xl:grid-cols-[380px_minmax(0,1fr)] min-[1920px]:grid-cols-[410px_minmax(0,1fr)]">
+              <div className="min-w-0 self-start overflow-hidden rounded-[24px] border border-[var(--surface-border)] bg-[rgba(255,255,255,0.78)] p-2.5 shadow-[inset_0_1px_0_rgba(255,255,255,0.32)] backdrop-blur-[2px] sm:p-3.5 xl:flex xl:h-[26.7rem] xl:flex-col xl:p-[0.6rem] 2xl:h-[28.2rem] min-[1920px]:h-[29.2rem] dark:bg-[rgba(13,24,41,0.82)]">
                 <div className="relative max-w-full overflow-hidden pt-2 xl:flex-1 xl:min-h-0 xl:py-0 xl:pt-0">
                   <div
                     ref={stackListRef}
-                    className="skill-category-rail max-w-full pb-2 xl:h-full xl:overflow-x-hidden xl:overflow-y-auto xl:pb-0 xl:pr-1"
+                    className="skill-category-rail max-w-full pb-2 xl:h-full xl:overflow-x-hidden xl:overflow-y-auto xl:pb-2 xl:pr-1"
                   >
                     <div className="inline-flex min-w-max gap-2 snap-x snap-proximity pr-3 xl:flex xl:w-full xl:min-w-0 xl:flex-col xl:items-stretch xl:gap-2.5 xl:py-2 xl:pr-0">
                       {techStack.map((group) => {
@@ -278,16 +243,16 @@ export default function About() {
                             onClick={() => setActiveCategory(group.category)}
                             className={`skill-category-card group snap-start h-[4rem] shrink-0 min-w-max rounded-[18px] border px-4 py-0 text-left transition sm:px-4 xl:mr-3 xl:min-w-0 xl:max-w-none xl:w-[calc(100%-0.75rem)] xl:snap-none xl:h-[4.4rem] xl:rounded-[20px] xl:px-6 ${
                               isActive
-                                ? 'border-[rgba(125,211,252,0.68)] bg-[linear-gradient(135deg,rgba(37,99,235,0.16),rgba(14,165,233,0.06))] text-[var(--accent)] shadow-[0_12px_24px_rgba(37,99,235,0.08)]'
-                                : 'border-[var(--surface-border)] bg-[linear-gradient(135deg,rgba(255,255,255,0.72),rgba(255,255,255,0.54))] text-[var(--muted)] hover:border-[rgba(125,211,252,0.42)] hover:bg-[rgba(255,255,255,0.78)] hover:text-[var(--text)] dark:bg-[rgba(15,23,42,0.74)] dark:hover:border-[rgba(125,211,252,0.3)] dark:hover:bg-[rgba(15,23,42,0.78)] dark:hover:text-slate-50 xl:bg-[linear-gradient(135deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02))] xl:hover:border-[rgba(125,211,252,0.58)] xl:hover:bg-[linear-gradient(135deg,rgba(37,99,235,0.14),rgba(14,165,233,0.05))] xl:hover:shadow-[0_14px_28px_rgba(8,17,31,0.16)] dark:xl:bg-[linear-gradient(180deg,rgba(15,23,42,0.74),rgba(15,23,42,0.52))] dark:xl:hover:border-[rgba(125,211,252,0.54)] dark:xl:hover:bg-[linear-gradient(135deg,rgba(125,211,252,0.16),rgba(37,99,235,0.08))]'
+                                ? 'border-[rgba(125,211,252,0.68)] bg-[linear-gradient(135deg,rgba(37,99,235,0.16),rgba(14,165,233,0.06))] text-[var(--accent)] shadow-[0_12px_24px_rgba(37,99,235,0.08)] dark:border-[rgba(125,211,252,0.54)] dark:bg-[linear-gradient(135deg,rgba(10,132,255,0.2),rgba(14,165,233,0.12))] dark:text-sky-100 dark:shadow-[0_16px_34px_rgba(2,6,23,0.28)]'
+                                : 'border-[var(--surface-border)] bg-[linear-gradient(135deg,rgba(255,255,255,0.72),rgba(255,255,255,0.54))] text-[var(--muted)] hover:border-[rgba(125,211,252,0.42)] hover:bg-[rgba(255,255,255,0.78)] hover:text-[var(--text)] dark:border-[rgba(96,165,250,0.2)] dark:bg-[linear-gradient(180deg,rgba(15,23,42,0.74),rgba(15,23,42,0.52))] dark:text-slate-300 dark:hover:border-[rgba(125,211,252,0.54)] dark:hover:!bg-[linear-gradient(135deg,rgba(16,44,84,0.92),rgba(18,67,117,0.72))] dark:hover:text-slate-50 dark:hover:shadow-[0_14px_28px_rgba(8,17,31,0.16)]'
                             }`}
                           >
                             <div className="flex items-center gap-2.5 xl:h-full xl:gap-3">
                               <span
                                 className={`flex h-9 w-9 items-center justify-center rounded-2xl transition sm:h-10 sm:w-10 xl:h-[2.45rem] xl:w-[2.45rem] ${
                                   isActive
-                                    ? 'bg-[rgba(255,255,255,0.82)] text-[var(--accent)]'
-                                    : 'bg-[var(--surface-strong)] text-[var(--muted)] group-hover:bg-[rgba(255,255,255,0.94)] group-hover:text-[var(--accent)] dark:group-hover:bg-[rgba(15,23,42,0.78)] dark:group-hover:text-sky-200'
+                                    ? 'bg-[rgba(255,255,255,0.82)] text-[var(--accent)] ring-1 ring-[rgba(125,211,252,0.18)] dark:bg-[linear-gradient(135deg,rgba(7,16,29,0.86),rgba(15,23,42,0.92))] dark:text-sky-100 dark:ring-[rgba(125,211,252,0.24)]'
+                                    : 'bg-[var(--surface-strong)] text-[var(--muted)] ring-1 ring-transparent group-hover:bg-[rgba(255,255,255,0.94)] group-hover:text-[var(--accent)] dark:bg-[linear-gradient(135deg,rgba(10,25,49,0.88),rgba(12,31,59,0.8))] dark:text-sky-200 dark:ring-[rgba(59,130,246,0.08)] dark:group-hover:!bg-[linear-gradient(135deg,rgba(12,32,61,0.98),rgba(15,49,88,0.9))] dark:group-hover:text-sky-100'
                                 }`}
                               >
                                 <StackIcon size={17} />
@@ -338,7 +303,7 @@ export default function About() {
                 </div>
               </div>
 
-              <div className="min-w-0 rounded-[24px] border border-[var(--surface-border)] bg-[rgba(255,255,255,0.8)] p-3.5 shadow-[inset_0_1px_0_rgba(255,255,255,0.28)] backdrop-blur-[2px] sm:p-5 xl:flex xl:h-[27.15rem] xl:flex-col dark:bg-[rgba(13,24,41,0.84)]">
+              <div className="min-w-0 rounded-[24px] border border-[var(--surface-border)] bg-[rgba(255,255,255,0.8)] p-3.5 shadow-[inset_0_1px_0_rgba(255,255,255,0.28)] backdrop-blur-[2px] sm:p-5 xl:flex xl:h-[26.7rem] xl:flex-col 2xl:h-[28.2rem] min-[1920px]:h-[29.2rem] dark:bg-[rgba(13,24,41,0.84)]">
                 <div className="xl:flex-1">
                 <div
                   className={`grid grid-cols-2 gap-2.5 sm:gap-3 xl:w-full ${
@@ -359,7 +324,7 @@ export default function About() {
                       }`}
                     >
                       <div className="flex h-full flex-col items-start gap-2.5 sm:flex-row sm:items-center sm:gap-3">
-                        <span className="flex h-9 w-9 items-center justify-center rounded-2xl bg-[linear-gradient(135deg,rgba(37,99,235,0.14),rgba(14,165,233,0.08))] text-[var(--accent)] sm:h-10 sm:w-10">
+                        <span className="flex h-9 w-9 items-center justify-center rounded-2xl bg-[linear-gradient(135deg,rgba(37,99,235,0.14),rgba(14,165,233,0.08))] sm:h-10 sm:w-10">
                           <Icon icon={skill.icon} width="19" height="19" />
                         </span>
                         <span
