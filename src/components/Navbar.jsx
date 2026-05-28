@@ -61,7 +61,7 @@ export default function Navbar({ darkMode, toggleTheme, activeSection }) {
         className={`content-container flex items-center justify-between rounded-full border px-3.5 py-2.5 shadow-sm transition-all duration-300 sm:px-6 sm:py-3 ${
           scrolled
             ? 'border-[var(--surface-border)] bg-[rgba(255,255,255,0.96)] shadow-[var(--shadow)] dark:bg-[rgba(7,16,29,0.98)]'
-            : 'border-[var(--surface-border)] bg-[rgba(255,255,255,0.96)] shadow-[0_10px_28px_rgba(15,23,42,0.08)] dark:bg-[rgba(7,16,29,0.98)] dark:shadow-[0_12px_32px_rgba(2,6,23,0.24)] md:border-transparent md:bg-transparent md:shadow-none'
+            : 'border-[var(--surface-border)] bg-[rgba(255,255,255,0.96)] shadow-[0_10px_28px_rgba(15,23,42,0.08)] dark:bg-[rgba(7,16,29,0.98)] dark:shadow-[0_12px_32px_rgba(2,6,23,0.24)] md:border-transparent md:bg-transparent md:shadow-none dark:md:border-transparent dark:md:bg-transparent dark:md:shadow-none'
         }`}
       >
         <button

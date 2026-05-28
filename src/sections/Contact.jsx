@@ -109,7 +109,7 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="section-shell scroll-mt-6 pt-2 pb-5 lg:scroll-mt-8 lg:pt-3 lg:pb-6">
+    <section id="contact" className="section-shell scroll-mt-6 pt-2 pb-12 lg:scroll-mt-8 lg:pt-3 lg:pb-14">
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <div className="absolute bottom-0 left-[12%] h-48 w-48 rounded-full bg-cyan-400/10 blur-3xl dark:bg-sky-300/12" />
       </div>
@@ -117,13 +117,17 @@ export default function Contact() {
       <div className="content-container relative">
         <SectionHeading
           eyebrow="Contact"
-          title="If my work resonates with you, I’d be glad to connect."
-          description="Whether it’s software, ML systems, data work, or research-driven builds, feel free to reach out through the form below."
+          title={
+            <>
+              If my work resonates with you,
+              <br />
+              I’d be glad to connect.
+            </>
+          }
           className="max-w-none"
-          descriptionClassName="xl:whitespace-nowrap xl:text-[0.98rem] 2xl:text-[1rem]"
         />
 
-        <div className="mt-3 grid items-stretch gap-5 sm:mt-4 sm:gap-6 xl:grid-cols-[380px_minmax(0,1fr)] 2xl:grid-cols-[420px_minmax(0,1fr)] min-[1920px]:grid-cols-[450px_minmax(0,1fr)]">
+        <div className="mt-5 grid items-stretch gap-5 sm:mt-6 sm:gap-6 xl:grid-cols-[380px_minmax(0,1fr)] 2xl:grid-cols-[420px_minmax(0,1fr)] min-[1920px]:grid-cols-[450px_minmax(0,1fr)]">
           <Reveal className="h-full">
             <article className="surface-panel flex h-full flex-col p-5 sm:p-7">
               <span className="section-eyebrow w-fit self-start">Get In Touch</span>
@@ -288,7 +292,7 @@ export default function Contact() {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="primary-button w-full sm:w-auto disabled:cursor-not-allowed disabled:opacity-70"
+                  className="primary-button w-full shadow-[0_10px_20px_rgba(37,99,235,0.16)] dark:shadow-[0_12px_22px_rgba(14,165,233,0.1)] sm:w-auto disabled:cursor-not-allowed disabled:opacity-70"
                 >
                   {isSubmitting ? 'Sending...' : 'Send Message'}
                   <ArrowRight size={16} />

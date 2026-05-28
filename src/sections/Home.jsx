@@ -109,7 +109,6 @@ export default function Home() {
           <div className="space-y-4 sm:space-y-5 lg:max-w-[41.25rem] lg:space-y-4 xl:max-w-[42.25rem] 2xl:max-w-[47rem] min-[1920px]:max-w-[52rem]">
             <motion.span
               variants={itemVariants}
-              whileHover={shouldReduceMotion ? undefined : { y: -2, scale: 1.01 }}
               className="section-eyebrow w-fit shadow-[0_10px_24px_rgba(37,99,235,0.08)] transition-all duration-300 hover:border-[var(--surface-border)] hover:bg-[color:rgba(37,99,235,0.12)] hover:text-[var(--accent)] hover:shadow-[0_12px_28px_rgba(37,99,235,0.10)]"
             >
               Currently at IIT Bombay

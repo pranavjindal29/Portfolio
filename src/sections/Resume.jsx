@@ -39,14 +39,16 @@ export default function Resume() {
                 <article className="surface-panel overflow-hidden p-5 sm:p-7">
                   <div className="flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between">
                     <div>
-                      <div className="flex items-center gap-2 text-[var(--accent)]">
-                        <BriefcaseBusiness size={16} />
-                        <span className="meta-label !text-[var(--accent)]">{item.mode}</span>
-                      </div>
-                      <h3 className="mt-3 text-xl font-semibold text-[var(--text)] sm:text-2xl">{item.title}</h3>
+                      <h3 className="text-xl font-semibold text-[var(--text)] sm:text-2xl">{item.title}</h3>
                       <p className="mt-1 text-base font-medium text-[var(--muted)]">{item.organization}</p>
                     </div>
-                    <span className="chip w-fit whitespace-nowrap">{item.period}</span>
+                    <div className="flex w-fit items-center gap-2 self-start">
+                      <span className="flex items-center gap-2 rounded-full border border-[var(--surface-border)] bg-[var(--surface-strong)] px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.2em] text-[var(--accent)]">
+                        <BriefcaseBusiness size={14} />
+                        {item.mode}
+                      </span>
+                      <span className="chip w-fit whitespace-nowrap">{item.period}</span>
+                    </div>
                   </div>
 
                   <p className="mt-5 text-sm leading-7 text-[var(--muted)] sm:text-base">{item.summary}</p>

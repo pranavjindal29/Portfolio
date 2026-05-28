@@ -1,4 +1,4 @@
-import { Icon as OfflineIcon, addCollection } from '@iconify/react/dist/offline';
+import { Icon as OfflineIcon, addCollection, addIcon } from '@iconify/react/dist/offline';
 import carbon from '../data/iconify/carbon.json';
 import devicon from '../data/iconify/devicon.json';
 import fluent from '../data/iconify/fluent.json';
@@ -17,6 +17,12 @@ function registerCollections() {
 
   [carbon, devicon, fluent, logos, mdi, ph, simpleIcons, skillIcons].forEach((collection) => {
     addCollection(collection);
+  });
+
+  addIcon('custom:bash', {
+    body: '<path fill="currentColor" d="M36 58a6 6 0 0 1 6-6h172a6 6 0 0 1 6 6v140a6 6 0 0 1-6 6H42a6 6 0 0 1-6-6zm16.5 26.5a5 5 0 0 0 0 7.07L72.93 112L52.5 132.43a5 5 0 1 0 7.07 7.07l24-24a5 5 0 0 0 0-7.07l-24-24a5 5 0 0 0-7.07 0M98 143a5 5 0 0 0 5 5h48a5 5 0 0 0 0-10h-48a5 5 0 0 0-5 5"/>',
+    width: 256,
+    height: 256,
   });
 
   collectionsRegistered = true;

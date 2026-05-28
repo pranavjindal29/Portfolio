@@ -34,6 +34,7 @@ const stackIcons = {
 
 export default function About() {
   const [activeCategory, setActiveCategory] = useState(techStack[0].category);
+  const [isVerticalScrollbarActive, setIsVerticalScrollbarActive] = useState(false);
   const [scrollThumb, setScrollThumb] = useState({
     verticalHeight: 56,
     verticalOffset: 0,
@@ -43,9 +44,12 @@ export default function About() {
     horizontalVisible: false,
   });
   const stackListRef = useRef(null);
+  const verticalTrackRef = useRef(null);
+  const scrollThumbRef = useRef(scrollThumb);
+  const dragStateRef = useRef(null);
   const activeStack = techStack.find((group) => group.category === activeCategory) ?? techStack[0];
   const isDenseStack = activeStack.skills.length > 9;
-  const isSparseStack = activeStack.skills.length <= 7;
+  const usesThreeColumnMatrix = activeStack.skills.length <= 9;
   const snapshotItems = [
     {
       label: 'Current role',
@@ -72,6 +76,17 @@ export default function About() {
   ];
 
   useEffect(() => {
+    scrollThumbRef.current = scrollThumb;
+  }, [scrollThumb]);
+
+  useEffect(() => {
+    return () => {
+      dragStateRef.current = null;
+      document.body.style.userSelect = '';
+    };
+  }, []);
+
+  useEffect(() => {
     const element = stackListRef.current;
 
     if (!element) {
@@ -82,11 +97,12 @@ export default function About() {
       const { clientHeight, scrollHeight, scrollTop, clientWidth, scrollWidth, scrollLeft } = element;
       const canScrollY = scrollHeight - clientHeight > 4;
       const canScrollX = scrollWidth - clientWidth > 4;
+      const verticalTrackHeight = verticalTrackRef.current?.clientHeight ?? clientHeight;
 
       const nextVerticalHeight = canScrollY
-        ? Math.max((clientHeight / scrollHeight) * clientHeight, 44)
-        : clientHeight;
-      const verticalMaxOffset = Math.max(clientHeight - nextVerticalHeight, 0);
+        ? Math.max((clientHeight / scrollHeight) * verticalTrackHeight, 44)
+        : verticalTrackHeight;
+      const verticalMaxOffset = Math.max(verticalTrackHeight - nextVerticalHeight, 0);
       const verticalScrollRange = Math.max(scrollHeight - clientHeight, 1);
       const nextVerticalOffset = canScrollY ? (scrollTop / verticalScrollRange) * verticalMaxOffset : 0;
 
@@ -118,6 +134,87 @@ export default function About() {
       window.removeEventListener('resize', updateScrollThumb);
     };
   }, []);
+
+  const syncVerticalScrollFromThumb = (nextOffset) => {
+    const element = stackListRef.current;
+    const track = verticalTrackRef.current;
+
+    if (!element || !track) {
+      return;
+    }
+
+    const thumbHeight = scrollThumbRef.current.verticalHeight;
+    const maxThumbOffset = Math.max(track.getBoundingClientRect().height - thumbHeight, 0);
+    const maxScrollTop = Math.max(element.scrollHeight - element.clientHeight, 0);
+    const clampedOffset = Math.min(Math.max(nextOffset, 0), maxThumbOffset);
+    const nextScrollTop = maxThumbOffset > 0 ? (clampedOffset / maxThumbOffset) * maxScrollTop : 0;
+
+    element.scrollTop = nextScrollTop;
+  };
+
+  const stopVerticalDrag = () => {
+    dragStateRef.current = null;
+    setIsVerticalScrollbarActive(false);
+    document.body.style.userSelect = '';
+    window.removeEventListener('pointermove', handleVerticalDragMove);
+    window.removeEventListener('pointerup', stopVerticalDrag);
+  };
+
+  const handleVerticalDragMove = (event) => {
+    const track = verticalTrackRef.current;
+    const dragState = dragStateRef.current;
+
+    if (!track || !dragState) {
+      return;
+    }
+
+    const trackRect = track.getBoundingClientRect();
+    const nextOffset = event.clientY - trackRect.top - dragState.grabOffset;
+
+    syncVerticalScrollFromThumb(nextOffset);
+  };
+
+  const handleVerticalThumbPointerDown = (event) => {
+    if (!scrollThumbRef.current.verticalVisible) {
+      return;
+    }
+
+    const track = verticalTrackRef.current;
+
+    if (!track) {
+      return;
+    }
+
+    event.preventDefault();
+    event.stopPropagation();
+
+    const trackRect = track.getBoundingClientRect();
+    dragStateRef.current = {
+      grabOffset: event.clientY - trackRect.top - scrollThumbRef.current.verticalOffset,
+    };
+
+    setIsVerticalScrollbarActive(true);
+    document.body.style.userSelect = 'none';
+    window.addEventListener('pointermove', handleVerticalDragMove);
+    window.addEventListener('pointerup', stopVerticalDrag);
+  };
+
+  const handleVerticalTrackPointerDown = (event) => {
+    if (!scrollThumbRef.current.verticalVisible) {
+      return;
+    }
+
+    const track = verticalTrackRef.current;
+
+    if (!track) {
+      return;
+    }
+
+    const trackRect = track.getBoundingClientRect();
+    const nextOffset = event.clientY - trackRect.top - scrollThumbRef.current.verticalHeight / 2;
+
+    syncVerticalScrollFromThumb(nextOffset);
+  };
 
   return (
     <section id="about" className="section-shell scroll-mt-20 pt-4 sm:scroll-mt-24 sm:pt-5 lg:scroll-mt-24 lg:pt-6">
@@ -243,16 +340,16 @@ export default function About() {
                             onClick={() => setActiveCategory(group.category)}
                             className={`skill-category-card group snap-start h-[4rem] shrink-0 min-w-max rounded-[18px] border px-4 py-0 text-left transition sm:px-4 xl:mr-3 xl:min-w-0 xl:max-w-none xl:w-[calc(100%-0.75rem)] xl:snap-none xl:h-[4.4rem] xl:rounded-[20px] xl:px-6 ${
                               isActive
-                                ? 'border-[rgba(125,211,252,0.68)] bg-[linear-gradient(135deg,rgba(37,99,235,0.16),rgba(14,165,233,0.06))] text-[var(--accent)] shadow-[0_12px_24px_rgba(37,99,235,0.08)] dark:border-[rgba(125,211,252,0.54)] dark:bg-[linear-gradient(135deg,rgba(10,132,255,0.2),rgba(14,165,233,0.12))] dark:text-sky-100 dark:shadow-[0_16px_34px_rgba(2,6,23,0.28)]'
-                                : 'border-[var(--surface-border)] bg-[linear-gradient(135deg,rgba(255,255,255,0.72),rgba(255,255,255,0.54))] text-[var(--muted)] hover:border-[rgba(125,211,252,0.42)] hover:bg-[rgba(255,255,255,0.78)] hover:text-[var(--text)] dark:border-[rgba(96,165,250,0.2)] dark:bg-[linear-gradient(180deg,rgba(15,23,42,0.74),rgba(15,23,42,0.52))] dark:text-slate-300 dark:hover:border-[rgba(125,211,252,0.54)] dark:hover:!bg-[linear-gradient(135deg,rgba(16,44,84,0.92),rgba(18,67,117,0.72))] dark:hover:text-slate-50 dark:hover:shadow-[0_14px_28px_rgba(8,17,31,0.16)]'
+                                ? 'border-[rgba(96,165,250,0.72)] bg-[linear-gradient(135deg,rgba(37,99,235,0.22),rgba(14,165,233,0.1))] text-[var(--accent)] shadow-[0_14px_28px_rgba(37,99,235,0.1)] dark:border-[rgba(125,211,252,0.54)] dark:bg-[linear-gradient(135deg,rgba(10,132,255,0.2),rgba(14,165,233,0.12))] dark:text-sky-100 dark:shadow-[0_16px_34px_rgba(2,6,23,0.28)]'
+                                : 'border-[var(--surface-border)] bg-[linear-gradient(135deg,rgba(255,255,255,0.72),rgba(255,255,255,0.54))] text-[var(--muted)] hover:border-[rgba(125,211,252,0.42)] hover:bg-[linear-gradient(135deg,rgba(37,99,235,0.08),rgba(14,165,233,0.03))] hover:text-[var(--text)] hover:shadow-[0_10px_20px_rgba(37,99,235,0.05)] dark:border-[rgba(96,165,250,0.2)] dark:bg-[linear-gradient(180deg,rgba(15,23,42,0.74),rgba(15,23,42,0.52))] dark:text-slate-300 dark:hover:border-[rgba(125,211,252,0.54)] dark:hover:!bg-[linear-gradient(135deg,rgba(16,44,84,0.92),rgba(18,67,117,0.72))] dark:hover:text-slate-50 dark:hover:shadow-[0_14px_28px_rgba(8,17,31,0.16)]'
                             }`}
                           >
                             <div className="flex items-center gap-2.5 xl:h-full xl:gap-3">
                               <span
                                 className={`flex h-9 w-9 items-center justify-center rounded-2xl transition sm:h-10 sm:w-10 xl:h-[2.45rem] xl:w-[2.45rem] ${
                                   isActive
-                                    ? 'bg-[rgba(255,255,255,0.82)] text-[var(--accent)] ring-1 ring-[rgba(125,211,252,0.18)] dark:bg-[linear-gradient(135deg,rgba(7,16,29,0.86),rgba(15,23,42,0.92))] dark:text-sky-100 dark:ring-[rgba(125,211,252,0.24)]'
-                                    : 'bg-[var(--surface-strong)] text-[var(--muted)] ring-1 ring-transparent group-hover:bg-[rgba(255,255,255,0.94)] group-hover:text-[var(--accent)] dark:bg-[linear-gradient(135deg,rgba(10,25,49,0.88),rgba(12,31,59,0.8))] dark:text-sky-200 dark:ring-[rgba(59,130,246,0.08)] dark:group-hover:!bg-[linear-gradient(135deg,rgba(12,32,61,0.98),rgba(15,49,88,0.9))] dark:group-hover:text-sky-100'
+                                    ? 'bg-[rgba(255,255,255,0.96)] text-[var(--accent)] ring-1 ring-[rgba(96,165,250,0.22)] dark:bg-[linear-gradient(135deg,rgba(7,16,29,0.86),rgba(15,23,42,0.92))] dark:text-sky-100 dark:ring-[rgba(125,211,252,0.24)]'
+                                    : 'bg-[var(--surface-strong)] text-[var(--muted)] ring-1 ring-transparent group-hover:bg-[rgba(255,255,255,0.9)] group-hover:text-[var(--accent)] group-hover:ring-[rgba(125,211,252,0.18)] dark:bg-[linear-gradient(135deg,rgba(10,25,49,0.88),rgba(12,31,59,0.8))] dark:text-sky-200 dark:ring-[rgba(59,130,246,0.08)] dark:group-hover:!bg-[linear-gradient(135deg,rgba(12,32,61,0.98),rgba(15,49,88,0.9))] dark:group-hover:text-sky-100'
                                 }`}
                               >
                                 <StackIcon size={17} />
@@ -287,16 +384,43 @@ export default function About() {
                   </div>
 
                   <div
-                    className="pointer-events-none absolute bottom-2 right-0 top-2 hidden w-[3px] rounded-full xl:block"
+                    ref={verticalTrackRef}
+                    onPointerDown={handleVerticalTrackPointerDown}
+                    onPointerEnter={() => setIsVerticalScrollbarActive(true)}
+                    onPointerLeave={() => {
+                      if (!dragStateRef.current) {
+                        setIsVerticalScrollbarActive(false);
+                      }
+                    }}
+                    className={`absolute bottom-2 right-0 top-2 hidden cursor-pointer rounded-full transition-all duration-200 xl:block ${
+                      isVerticalScrollbarActive ? 'w-[6px]' : 'w-[3px]'
+                    }`}
                     style={{ background: 'rgba(148, 163, 184, 0.18)' }}
                   >
                     <span
+                      onPointerDown={handleVerticalThumbPointerDown}
+                      onPointerEnter={() => setIsVerticalScrollbarActive(true)}
+                      onPointerLeave={() => {
+                        if (!dragStateRef.current) {
+                          setIsVerticalScrollbarActive(false);
+                        }
+                      }}
                       className="absolute left-0 right-0 rounded-full transition-all duration-200"
                       style={{
                         height: `${scrollThumb.verticalHeight}px`,
                         transform: `translateY(${scrollThumb.verticalOffset}px)`,
-                        opacity: scrollThumb.verticalVisible ? 1 : 0.45,
-                        background: 'linear-gradient(180deg, rgba(37, 99, 235, 0.68), rgba(14, 165, 233, 0.52))',
+                        opacity: scrollThumb.verticalVisible ? (isVerticalScrollbarActive ? 1 : 0.72) : 0.45,
+                        background: isVerticalScrollbarActive
+                          ? 'linear-gradient(180deg, rgba(56, 189, 248, 0.9), rgba(37, 99, 235, 0.75))'
+                          : 'linear-gradient(180deg, rgba(37, 99, 235, 0.68), rgba(14, 165, 233, 0.52))',
+                        boxShadow: isVerticalScrollbarActive
+                          ? '0 0 0 2px rgba(56, 189, 248, 0.12)'
+                          : 'none',
+                        cursor: scrollThumb.verticalVisible
+                          ? dragStateRef.current
+                            ? 'grabbing'
+                            : 'grab'
+                          : 'default',
                       }}
                     />
                   </div>
@@ -304,14 +428,14 @@ export default function About() {
               </div>
 
               <div className="min-w-0 rounded-[24px] border border-[var(--surface-border)] bg-[rgba(255,255,255,0.8)] p-3.5 shadow-[inset_0_1px_0_rgba(255,255,255,0.28)] backdrop-blur-[2px] sm:p-5 xl:flex xl:h-[26.7rem] xl:flex-col 2xl:h-[28.2rem] min-[1920px]:h-[29.2rem] dark:bg-[rgba(13,24,41,0.84)]">
-                <div className="xl:flex-1">
+                <div className="flex xl:h-full xl:flex-1 xl:items-center">
                 <div
                   className={`grid grid-cols-2 gap-2.5 sm:gap-3 xl:w-full ${
                     isDenseStack
-                      ? 'lg:grid-cols-3 xl:grid-cols-4'
-                      : isSparseStack
-                        ? 'lg:grid-cols-3 xl:grid-cols-4 xl:content-start'
-                        : 'lg:grid-cols-[repeat(auto-fit,minmax(172px,1fr))] xl:content-start'
+                      ? 'lg:grid-cols-3 xl:grid-cols-4 xl:content-center'
+                      : usesThreeColumnMatrix
+                        ? 'lg:grid-cols-3 xl:grid-cols-3 xl:content-center'
+                        : 'lg:grid-cols-[repeat(auto-fit,minmax(172px,1fr))] xl:content-center'
                   }`}
                 >
                   {activeStack.skills.map((skill) => (
@@ -319,8 +443,8 @@ export default function About() {
                       key={skill.name}
                       className={`rounded-[18px] border border-[var(--surface-border)] bg-[var(--surface)] px-3.5 py-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.3)] transition hover:-translate-y-[1px] hover:border-[rgba(37,99,235,0.25)] hover:shadow-[0_14px_30px_rgba(15,23,42,0.08)] sm:rounded-[20px] ${
                         isDenseStack
-                          ? 'sm:min-h-[4.9rem] sm:px-3.5 sm:py-3.5'
-                          : 'sm:min-h-[5.9rem] sm:px-4 sm:py-4'
+                          ? 'sm:min-h-[4.9rem] sm:px-3.5 sm:py-3.5 xl:min-h-[5.25rem]'
+                          : 'sm:min-h-[5.9rem] sm:px-4 sm:py-4 xl:min-h-[6.15rem]'
                       }`}
                     >
                       <div className="flex h-full flex-col items-start gap-2.5 sm:flex-row sm:items-center sm:gap-3">

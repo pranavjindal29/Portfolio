@@ -31,7 +31,7 @@ const iconCollections = {
     'intellij-idea',
     'raspberry-pi',
   ],
-  'skill-icons': ['javascript', 'cpp', 'linux-light', 'html', 'css'],
+  'skill-icons': ['javascript', 'cpp', 'bash', 'linux-light', 'html', 'css'],
   carbon: ['sql', 'chart-scatter', 'matrix', 'chart-bubble'],
   mdi: [
     'cube-outline',
