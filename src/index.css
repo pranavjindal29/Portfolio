@@ -124,8 +124,8 @@ img {
 
   @media (min-width: 1024px) {
     .layout-with-sidebar {
-      padding-left: 5.25rem;
-      padding-right: 1.25rem;
+      padding-left: 4.75rem;
+      padding-right: 1rem;
     }
   }
 
@@ -134,30 +134,26 @@ img {
   }
 
   @media (min-width: 1280px) and (max-width: 1535px) {
-    main .content-container {
-      max-width: min(84rem, calc(100vw - 7rem));
+    .content-container {
+      max-width: calc(100vw - 7rem);
       margin-left: auto;
-      margin-right: auto;
+      margin-right: 0;
     }
   }
 
   @media (min-width: 1536px) {
     .content-container {
-      max-width: min(94rem, calc(100vw - 8rem));
-    }
-
-    .section-shell {
-      padding-inline: 2.5rem;
+      max-width: calc(100vw - 7rem);
+      margin-left: auto;
+      margin-right: 0;
     }
   }
 
   @media (min-width: 1920px) {
     .content-container {
-      max-width: min(106rem, calc(100vw - 9rem));
-    }
-
-    .section-shell {
-      padding-inline: 3rem;
+      max-width: calc(100vw - 7rem);
+      margin-left: auto;
+      margin-right: 0;
     }
   }
 
