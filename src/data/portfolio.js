@@ -37,7 +37,7 @@ export const heroStrengths = [
 
 export const aboutParagraphs = [
   'My work sits at the intersection of software engineering, machine learning, and research-led problem solving. I enjoy translating complex systems into products that feel clear, reliable, and easy to trust.',
-  'Recently, I have contributed to 5G and 6G core network research at IIT Bombay, traffic analytics and computer vision systems at IIT Roorkee, remote sensing pipelines at DRDO, and production-facing ML delivery at SVGS IT Solutions.',
+  'Recently, I have contributed to wireless systems research at IIT Bombay, traffic analytics and computer vision systems at IIT Roorkee, remote sensing pipelines at DRDO, and production-facing ML delivery at SVGS IT Solutions.',
   'That range has shaped how I approach engineering: start from first principles, measure what matters, keep the UX crisp, and ship solutions that hold up beyond a demo.'
 ];
 
@@ -199,11 +199,11 @@ export const experience = [
     mode: 'On-site',
     period: 'Oct 2025 - Present',
     summary:
-      'Working on SA 5G core network optimization using Open5GS, OAI, Linux-based testbeds, and SBI-based network-function interactions.',
+      'Working with 5G standalone systems and supporting 6G-oriented development. Focused on infrastructure setup, testing workflows, and applied engineering support.',
     highlights: [
-      'Built a NAS Anchor Function that reduced AMF registration load by 15%.',
-      'Split UE registration across NAF and AMF with AUSF and security handling at NAF.',
-      'Tested 512 parallel UEs with only a 0.25% rise in registration latency.',
+      'Supporting wireless systems experimentation and validation workflows.',
+      'Working with Linux-based setups, network tooling, and repeatable testing environments.',
+      'Contributing to applied research support across system behavior, debugging, and infrastructure tasks.',
     ],
     stack: ['Open5GS', 'OpenAirInterface', '5G Standalone', 'AMF', 'SBI', '6G'],
   },
