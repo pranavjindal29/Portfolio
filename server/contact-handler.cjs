@@ -60,6 +60,15 @@ const handleContactRequest = async ({ method, body, env = process.env }) => {
     }
   }
 
+  if (
+    !payload || typeof payload !== 'object' || Array.isArray(payload) ||
+    ['name', 'email', 'company', 'message', 'website'].some(
+      (field) => payload[field] != null && typeof payload[field] !== 'string'
+    )
+  ) {
+    return { status: 400, body: { error: 'Contact fields must be text.' } }
+  }
+
   const name = payload?.name?.trim() || ''
   const email = payload?.email?.trim() || ''
   const company = payload?.company?.trim() || ''
@@ -78,6 +87,10 @@ const handleContactRequest = async ({ method, body, env = process.env }) => {
       status: 400,
       body: { error: 'Name, email, and message are required.' },
     }
+  }
+
+  if (name.length > 120 || email.length > 254 || company.length > 200 || message.length > 5000) {
+    return { status: 400, body: { error: 'One or more contact fields exceed the allowed length.' } }
   }
 
   if (!isValidEmail(email)) {

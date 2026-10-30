@@ -1,393 +1,204 @@
-export const navigationItems = ['Home', 'About', 'Resume', 'Projects', 'Contact'];
-
 export const profile = {
   name: 'Pranav Jindal',
   initials: 'PJ',
-  role: 'AI & ML Engineer',
+  role: 'Software & Systems Engineer',
   location: 'Mumbai, India',
   email: 'jindalpranav944@gmail.com',
-  phone: '+91 7093702160',
-  linkedin: 'https://linkedin.com/in/pranavjindal29',
+  linkedin: 'https://www.linkedin.com/in/jindalpranav29/',
   github: 'https://github.com/pranavjindal29',
   leetcode: 'https://leetcode.com/u/pranavjindal29/',
-  gfg: 'https://www.geeksforgeeks.org/user/jindalprzpdt/',
   resume: '/Pranav_Jindal_Resume.pdf',
-  headline:
-    'Building ML systems, telecom research infrastructure, and polished product experiences.',
-  subheadline: '',
-  summary: '',
-  availability:
-    'Building across software, machine learning, data workflows, and telecom systems.',
+  headline: 'Building backend and distributed systems in C/C++ and Go, with a focus on reliability and performance.',
 };
 
-export const heroRoles = ['AI Researcher', 'ML Engineer', 'Software Developer'];
-export const heroStats = [
-  { value: '4+', label: 'hands-on research and engineering roles' },
-  { value: '54K+', label: 'images used in training workflows' },
-  { value: '20+', label: 'juniors mentored in ML communities' },
-  { value: 'AWS', label: 'certified cloud practitioner' },
+export const navigation = [
+  { label: 'About', id: 'about' },
+  { label: 'Experience', id: 'experience' },
+  { label: 'Projects', id: 'projects' },
+  { label: 'Contact', id: 'contact' },
 ];
 
-export const heroStrengths = [
-  { title: 'Research depth', caption: 'Institute-led problem solving' },
-  { title: 'Frontend polish', caption: 'Clean responsive interfaces' },
-  { title: 'Applied ML', caption: 'Training to deployment thinking' },
-  { title: 'Systems thinking', caption: 'Architecture with product clarity' },
-];
+// Benchmark evidence is presented in the featured engineering case study.
+// No hardware, latency values, or deployment scale claims were supplied.
+const benchmark = {
+  cycles: '111,679',
+  duration: '300 seconds',
+  throughput: '372.3',
+  result: '111,679 complete cycles in 300 seconds (~372.3 cycles/sec)',
+};
 
-export const aboutParagraphs = [
-  'My work sits at the intersection of software engineering, machine learning, and research-led problem solving. I enjoy translating complex systems into products that feel clear, reliable, and easy to trust.',
-  'Recently, I have contributed to wireless systems research at IIT Bombay, traffic analytics and computer vision systems at IIT Roorkee, remote sensing pipelines at DRDO, and production-facing ML delivery at SVGS IT Solutions.',
-  'That range has shaped how I approach engineering: start from first principles, measure what matters, keep the UX crisp, and ship solutions that hold up beyond a demo.'
-];
+export const hero = {
+  eyebrow: 'Currently at IIT Bombay',
+  paragraphs: [
+    'I build software for the moments when things get complicated: overlapping requests, shared state, and growing workloads.',
+    'At IIT Bombay, I work in C/C++ and Go to make backend systems reliable.',
+    'I test assumptions, trace failures, and measure how systems behave under load.',
+  ],
+  primaryAction: 'View Work',
+  resumeAction: 'Download Resume',
+  portraitAlt: 'Portrait of Pranav Jindal',
+  process: ['Build', 'Test', 'Measure'],
+  appointment: 'Project Research Associate',
+};
 
-export const focusAreas = [
-  {
-    title: 'Systems Mindset',
-    description: 'Comfortable moving from architecture and data flow to the product details users actually notice.',
-  },
-  {
-    title: 'Applied ML',
-    description: 'Hands-on with training, evaluation, deployment constraints, and communicating outcomes clearly.',
-  },
-  {
-    title: 'Calm Execution',
-    description: 'I like turning ambiguous ideas into structured plans, thoughtful interfaces, and dependable implementation.',
-  },
-];
+export const about = {
+  title: 'About',
+  paragraphs: [
+    'I’m a Project Research Associate at IIT Bombay, working on software reliability, testing, and performance evaluation.',
+    'My earlier work includes real-time computer vision on edge devices at IIT Roorkee and satellite-image processing at DRDO, with experience in hardware-constrained deployment and research engineering.',
+  ],
+  areasTitle: 'Core engineering areas',
+  areas: [
+    'Backend & Distributed Systems',
+    'Reliability & Asynchronous Processing',
+    'Performance & Testing',
+  ],
+};
 
-export const techStack = [
-  {
-    category: 'Programming',
-    description: 'Core languages used across engineering, analytics, and production-facing implementation.',
-    skills: [
-      { name: 'Python', icon: 'logos:python' },
-      { name: 'C++', icon: 'skill-icons:cpp' },
-      { name: 'JavaScript', icon: 'skill-icons:javascript' },
-      { name: 'SQL', icon: 'carbon:sql' },
-      { name: 'Shell Scripting', icon: 'custom:bash' },
-      { name: 'Java', icon: 'logos:java' },
-    ],
-  },
-  {
-    category: 'Backend & Systems',
-    description: 'Service-side engineering and systems foundations used to build maintainable software and platform workflows.',
-    skills: [
-      { name: 'OOP', icon: 'mdi:cube-outline' },
-      { name: 'Linux', icon: 'skill-icons:linux-light' },
-      { name: 'DBMS', icon: 'mdi:database-cog-outline' },
-      { name: 'PostgreSQL', icon: 'logos:postgresql' },
-      { name: 'REST APIs', icon: 'mdi:api' },
-      { name: 'Node.js', icon: 'logos:nodejs-icon' },
-      { name: 'Flask', icon: 'logos:flask' },
-      { name: 'Pydantic', icon: 'simple-icons:pydantic' },
-      { name: 'Docker', icon: 'logos:docker-icon' },
-      { name: 'Docker Compose', icon: 'logos:docker-icon' },
-      { name: 'Distributed Systems', icon: 'mdi:graph-outline' },
-      { name: 'Log Analysis', icon: 'mdi:file-chart-outline' },
-    ],
-  },
-  {
-    category: 'Data Science & Engineering',
-    description:
-      'Transformation, validation, statistical analysis, and pipeline workflows that connect data quality with stronger downstream modeling.',
-    skills: [
-      { name: 'Statistics', icon: 'mdi:sigma' },
-      { name: 'Hypothesis Testing', icon: 'carbon:chart-scatter' },
-      { name: 'Data Analysis', icon: 'mdi:file-chart-outline' },
-      { name: 'Data Preprocessing', icon: 'mdi:tune-vertical' },
-      { name: 'Data Validation', icon: 'mdi:check-decagram-outline' },
-      { name: 'Feature Engineering', icon: 'mdi:tune-variant' },
-      { name: 'ETL Pipelines', icon: 'mdi:transit-connection-variant' },
-      { name: 'Batch Processing', icon: 'mdi:database-sync-outline' },
-      { name: 'PySpark', icon: 'simple-icons:apachespark' },
-    ],
-  },
-  {
-    category: 'AI / ML',
-    description: 'Applied modeling, computer vision, and evaluation workflows spanning research, product use cases, and edge deployment.',
-    skills: [
-      { name: 'Scikit-learn', icon: 'devicon:scikitlearn' },
-      { name: 'XGBoost', icon: 'mdi:chart-line-variant' },
-      { name: 'Computer Vision', icon: 'mdi:camera-outline' },
-      { name: 'CNN', icon: 'mdi:brain' },
-      { name: 'YOLO', icon: 'ph:eye-bold' },
-      { name: 'TensorFlow Lite', icon: 'logos:tensorflow' },
-      { name: 'Cosine Similarity', icon: 'mdi:compare-horizontal' },
-      { name: 'Recommender Systems', icon: 'mdi:star-box-multiple-outline' },
-      { name: 'SMOTE', icon: 'mdi:chart-scatter-plot-hexbin' },
-      { name: 'Anomaly Detection', icon: 'mdi:chart-bell-curve-cumulative' },
-      { name: 'Depth Anything', icon: 'mdi:camera-wireless-outline' },
-      { name: 'GeoSAM', icon: 'mdi:image-filter-center-focus' },
-    ],
-  },
-  {
-    category: 'Model Evaluation',
-    description: 'Validation signals and metrics used to judge model quality beyond surface-level accuracy.',
-    skills: [
-      { name: 'Confusion Matrix', icon: 'carbon:matrix' },
-      { name: 'Precision', icon: 'mdi:target' },
-      { name: 'Recall', icon: 'mdi:history' },
-      { name: 'F1 Score', icon: 'carbon:chart-bubble' },
-      { name: 'Accuracy Metrics', icon: 'mdi:percent-circle-outline' },
-      { name: 'ROC-AUC', icon: 'fluent:arrow-trending-lines-24-filled' },
-    ],
-  },
-  {
-    category: 'Cloud & DevOps',
-    description: 'Deployment-oriented tooling and cloud exposure used across engineering, delivery, and experimentation.',
-    skills: [
-      { name: 'AWS', icon: 'logos:aws' },
-      { name: 'Azure', icon: 'logos:microsoft-azure' },
-      { name: 'GCP', icon: 'logos:google-cloud' },
-      { name: 'Oracle Cloud', icon: 'simple-icons:oracle' },
-      { name: 'Vercel', icon: 'logos:vercel-icon' },
-      { name: 'Netlify', icon: 'logos:netlify' },
-      { name: 'Cloudflare', icon: 'logos:cloudflare-icon' },
-      { name: 'GitHub Actions', icon: 'mdi:github' },
-      { name: 'CI/CD Pipelines', icon: 'mdi:source-branch-sync' },
-    ],
-  },
-  {
-    category: 'Telecom & Networking',
-    description: 'Protocol, core-network, and traffic-analysis knowledge built through 5G research and systems testing.',
-    skills: [
-      { name: '5G', icon: 'mdi:signal-5g' },
-      { name: '6G', icon: 'mdi:radio-tower' },
-      { name: 'Core Network', icon: 'mdi:server-network-outline' },
-      { name: 'Open5GS', icon: 'mdi:antenna' },
-      { name: 'OpenAirInterface', icon: 'mdi:access-point-network' },
-      { name: 'UERANSIM', icon: 'mdi:cellphone-wireless' },
-      { name: 'SBI', icon: 'mdi:lan-connect' },
-      { name: 'NAS', icon: 'mdi:connection' },
-      { name: 'Wireshark', icon: 'mdi:lan-pending' },
-    ],
-  },
-  {
-    category: 'Frontend',
-    description: 'Responsive interface work across web and mobile, shaped around clean structure and polished implementation.',
-    skills: [
-      { name: 'HTML', icon: 'skill-icons:html' },
-      { name: 'CSS', icon: 'skill-icons:css' },
-      { name: 'JavaScript', icon: 'skill-icons:javascript' },
-      { name: 'React', icon: 'logos:react' },
-      { name: 'Android', icon: 'logos:android-icon' },
-      { name: 'Tailwind CSS', icon: 'logos:tailwindcss-icon' },
-    ],
-  },
-  {
-    category: 'Tools & Platforms',
-    description: 'Devices, geospatial utilities, and everyday tools used across delivery, experimentation, and applied projects.',
-    skills: [
-      { name: 'Git', icon: 'logos:git-icon' },
-      { name: 'GitHub', icon: 'mdi:github' },
-      { name: 'VS Code', icon: 'logos:visual-studio-code' },
-      { name: 'Raspberry Pi', icon: 'logos:raspberry-pi' },
-      { name: 'NVIDIA Jetson', icon: 'simple-icons:nvidia' },
-      { name: 'ESP8266', icon: 'mdi:chip' },
-      { name: 'Shapely', icon: 'mdi:vector-polygon' },
-      { name: 'Rasterio', icon: 'mdi:image-outline' },
-      { name: 'Leafmap', icon: 'mdi:map-outline' },
-    ],
-  },
-];
+export const skills = {
+  title: 'Skills & technologies',
+  groups: [
+    { title: 'Languages', items: ['C', 'C++', 'Go', 'Python', 'JavaScript', 'SQL'] },
+    { title: 'Backend & Systems', items: ['Linux', 'REST APIs', 'Distributed Systems', 'Concurrency', 'Event-driven Systems', 'PostgreSQL', 'Docker'] },
+    { title: 'Engineering & Performance', items: ['Git', 'GitHub', 'Unit Testing', 'Integration Testing', 'End-to-End Testing', 'Performance Profiling', 'Load Testing', 'Debugging', 'CI/CD'] },
+    { title: 'Applied AI / CV', items: ['YOLO', 'TensorFlow / PyTorch', 'OpenCV', 'GeoSAM', 'Edge AI', 'NVIDIA Jetson'] },
+  ],
+  domainLabel: 'Domain / systems exposure',
+  domain: ['Open5GS', 'gNBSIM', '5G Core'],
+};
 
-export const experience = [
-  {
-    title: 'Project Research Associate',
-    organization: 'Indian Institute of Technology, Bombay',
-    mode: 'On-site',
-    period: 'Oct 2025 - Present',
-    summary:
-      'Working with 5G standalone systems and supporting 6G-oriented development. Focused on infrastructure setup, testing workflows, and applied engineering support.',
-    highlights: [
-      'Supporting wireless systems experimentation and validation workflows.',
-      'Working with Linux-based setups, network tooling, and repeatable testing environments.',
-      'Contributing to applied research support across system behavior, debugging, and infrastructure tasks.',
-    ],
-    stack: ['Open5GS', 'OpenAirInterface', '5G Standalone', 'AMF', 'SBI', '6G'],
-  },
-  {
-    title: 'Project Research Associate',
-    organization: 'Indian Institute of Technology, Roorkee',
-    mode: 'On-site',
-    period: 'Aug 2025 - Sep 2025',
-    summary:
-      'Worked on ADAS camera calibration, edge vision deployment, and embedded telemetry pipelines for resource-constrained systems.',
-    highlights: [
-      'Automated ADAS camera calibration with Depth Anything and cut setup effort by 50%.',
-      'Fine-tuned YOLO on NVIDIA Jetson for real-time two-wheeler ADAS inference.',
-      'Improved ADAS latency and reliability on embedded AI hardware.',
-      'Built Raspberry Pi telemetry pipelines for CPU, memory, and device monitoring.',
-    ],
-    stack: ['Computer Vision', 'Depth Anything', 'YOLO', 'Jetson', 'ADAS'],
-  },
-  {
-    title: 'Project Trainee',
-    organization: 'Centre for Artificial Intelligence and Robotics, DRDO, Bangalore',
-    mode: 'On-site',
-    period: 'Mar 2025 - May 2025',
-    summary:
-      'Built a Python-based remote-sensing segmentation pipeline focused on lowering manual effort and reducing heavy infrastructure dependency.',
-    highlights: [
-      'Built a satellite segmentation pipeline that cut manual annotation effort by 60%.',
-      'Used GeoSAM to generate accurate masks and geospatial boundaries from imagery.',
-      'Designed CPU-friendly geospatial workflows with less GPU and GIS-tool dependence.',
-      'Processed outputs with Rasterio, Shapely, and Leafmap for downstream analysis.',
-    ],
-    stack: ['Python', 'GeoSAM', 'Rasterio', 'Shapely', 'Leafmap'],
-  },
-  {
-    title: 'Software Engineer Intern',
-    organization: 'SVGS IT Solutions, Noida',
-    mode: 'Hybrid',
-    period: 'May 2024 - Nov 2024',
-    summary:
-      'Built production-facing Python ML workflows spanning preprocessing, feature engineering, model training, evaluation, and business reporting.',
-    highlights: [
-      'Built Python ML workflows for preprocessing, feature engineering, training, and evaluation.',
-      'Improved model performance by 15–20% through tuning, cleaning, and validation.',
-      'Created dashboards for KPIs, model outputs, and performance trends.',
-      'Automated recurring analytical reports with reusable Python workflows.',
-    ],
-    stack: ['Python', 'ML Pipelines', 'Data Analysis', 'Dashboards', 'Feature Engineering'],
-  },
-  {
-    title: 'Frontend Developer Intern',
-    organization: 'Debug Solutions',
-    mode: 'Remote',
-    period: 'Feb 2024 - Apr 2024',
-    summary:
-      'Worked on user-facing frontend implementation with a focus on responsiveness, API integration, and performance improvements.',
-    highlights: [
-      'Built responsive web interfaces using HTML, CSS, and JavaScript.',
-      'Integrated APIs and optimized performance to reduce load times.',
-    ],
-    stack: ['HTML', 'CSS', 'JavaScript', 'API Integration', 'Performance Optimization'],
-  },
-];
+export const experience = {
+  title: 'Experience',
+  entries: [
+    {
+      title: 'Project Research Associate',
+      organization: 'Indian Institute of Technology Bombay',
+      period: 'Oct 2025 — Present',
+      current: true,
+      summary: 'Developing C/C++ backend workflows, supported by unit, integration, and end-to-end testing.',
+      highlights: [
+        'Built event-driven, queue-based workflows to coordinate shared state and service-to-service communication.',
+        'Handled duplicate, delayed, and concurrent events using request correlation, idempotency, retries, input validation, and concurrency safeguards.',
+        'Built a Go-based gNBSIM load-testing framework and profiled throughput and operation-level latency under concurrent workloads.',
+      ],
+      stack: ['C/C++', 'Go', 'Linux', 'Open5GS', 'gNBSIM', 'REST APIs', 'Concurrency', 'Performance Testing'],
+    },
+    {
+      title: 'Project Research Associate',
+      organization: 'Indian Institute of Technology Roorkee',
+      period: 'Aug 2025 — Sep 2025',
+      summary: 'Real-time perception and device monitoring for edge-deployed ADAS.',
+      highlights: [
+        'Built and optimized YOLO-based ADAS workflows on NVIDIA Jetson.',
+        'Automated camera calibration using Depth Anything, reducing manual setup effort by 50%.',
+        'Built Raspberry Pi telemetry pipelines for CPU, memory, and device monitoring.',
+      ],
+      stack: ['Python', 'YOLO', 'NVIDIA Jetson', 'Depth Anything', 'Raspberry Pi'],
+    },
+    {
+      title: 'Project Trainee',
+      organization: 'Centre for Artificial Intelligence and Robotics, DRDO',
+      period: 'Mar 2025 — May 2025',
+      summary: 'Built a satellite-image segmentation pipeline using GeoSAM and Python-based geospatial tooling.',
+      highlights: [
+        'Reduced manual annotation effort by 60% with automated segmentation masks and geospatial boundaries.',
+        'Designed CPU-friendly processing workflows using Rasterio, Shapely, and Leafmap.',
+      ],
+      stack: ['Python', 'GeoSAM', 'Rasterio', 'Shapely', 'Leafmap'],
+    },
+  ],
+  earlierTitle: 'Earlier experience',
+  earlier: [
+    {
+      title: 'Software Engineer Intern',
+      organization: 'SVGS IT Solutions',
+      period: 'May 2024 — Nov 2024',
+      summary: 'Built Python ML pipelines, KPI dashboards, and reusable reporting workflows for recurring analysis.',
+    },
+    {
+      title: 'Frontend Developer Intern',
+      organization: 'Debug Solutions',
+      period: 'Feb 2024 — Apr 2024',
+      summary: 'Built responsive web interfaces, integrated APIs, and optimized page performance.',
+    },
+  ],
+};
 
-export const educationItems = [
-  {
-    institution: 'Vellore Institute of Technology',
-    credential: 'BTech, Computer Science and Engineering',
-    period: 'Sep 2021 - Jul 2025',
-    grade: '8.22/10',
+export const projects = {
+  title: 'Featured Engineering',
+  description: 'Load-testing infrastructure, backend services, and data pipelines.',
+  featured: {
+    category: 'Systems Engineering · IIT Bombay',
+    title: 'Closed-Loop Load & Performance Testing System',
+    description: 'A Go framework using the gNBSIM simulator to run concurrent client lifecycles and measure throughput and operation-level latency over a fixed test window.',
+    result: benchmark.result,
+    highlights: ['Concurrent workload execution', 'Duration-based test window', 'Lifecycle recreation', 'Synchronized statistics collection', 'Race-safe shutdown', 'Latency measurement', 'End-to-end validation'],
+    stack: ['Go', 'Concurrency', 'Linux', 'gNBSIM', 'Performance Testing'],
+    benchmark,
   },
-  {
-    institution: 'Doon Hills Academy',
-    credential: 'Senior School Certificate Examination, CBSE',
-    period: 'Jun 2019 - May 2021',
-    grade: '9.16/10',
-  },
-  {
-    institution: 'Little Angels School',
-    credential: 'Secondary School Examination, CBSE',
-    period: 'Jun 2017 - May 2019',
-    grade: '8.21/10',
-  },
-];
+  items: [
+    {
+      category: 'Backend & Product Engineering',
+      title: 'PDF-IntelliExtract',
+      description: 'Extracts structured profile fields from PDFs and auto-fills a React form through a Python and Node.js service layer.',
+      stack: ['React', 'Node.js', 'Flask'],
+      github: 'https://github.com/pranavjindal29/PDF-IntelliExtract',
+      live: 'https://pdf-intelli-extract-frontend.vercel.app/',
+    },
+    {
+      category: 'Data Engineering',
+      title: 'Financial Transaction Monitoring',
+      description: 'A batch AML pipeline that validates transactions, quarantines invalid records, and loads suspicious-activity alerts into PostgreSQL.',
+      stack: ['PySpark', 'Pydantic', 'PostgreSQL', 'Docker'],
+      github: 'https://github.com/pranavjindal29/pyspark-financial-transaction-monitoring',
+    },
+    {
+      category: 'Edge AI & IoT',
+      title: 'HarvestWatch',
+      description: 'A plant-disease detection platform combining on-device mobile inference and live field sensing.',
+      stack: ['TensorFlow Lite', 'Android', 'ESP8266'],
+      github: 'https://github.com/pranavjindal29/HarvestWatch',
+    },
+  ],
+  moreTitle: 'More projects',
+  more: [
+    { title: 'Customer Churn Prediction', github: 'https://github.com/pranavjindal29/Customer_Churn_Prediction_using_ML' },
+    { title: 'Movie Recommendation System', github: 'https://github.com/pranavjindal29/movie-recommendation-system' },
+  ],
+};
+
+export const education = {
+  institution: 'Vellore Institute of Technology',
+  credential: 'BTech, Computer Science and Engineering',
+  period: '2021–2025',
+  grade: '8.22/10',
+};
 
 export const certifications = [
-  {
-    title: 'Front-End Developer Specialization',
-    issuer: 'Meta',
-    issued: 'May 2024',
-    credentialId: 'G6XFNU2VPFP9',
-  },
-  {
-    title: 'Cloud Practitioner',
-    issuer: 'Amazon Web Services (AWS)',
-    issued: 'Jan 2024',
-    expires: 'Jan 2027',
-  },
-  {
-    title: 'MERN Full Stack Internship Program',
-    issuer: 'ETHNUS',
-    issued: 'Dec 2023',
-    credentialId: 'VDH626P4',
-  },
+  { title: 'AWS Cloud Practitioner', issuer: 'Amazon Web Services', issued: 'Jan 2024', expires: 'Jan 2027' },
+  { title: 'Meta Front-End Developer Specialization', issuer: 'Meta', issued: 'May 2024' },
 ];
 
-export const leadershipHighlights = [
-  {
-    title: 'Data Science Club VITB',
-    description: 'Co-Lead since June 2023, coordinated 5+ events with a 25-member team and improved member engagement by 70%.',
-  },
-  {
-    title: 'Mentorship',
-    description: 'Mentored 20+ juniors on ML projects and conducted Python and ML workshops.',
-  },
-];
+export const leadership = 'Co-led the Data Science Club at VIT and mentored 20+ students through Python/ML projects and workshops.';
 
-export const projects = [
-  {
-    title: 'pyspark-financial-transaction-monitoring',
-    category: 'Data Engineering',
-    description:
-      'Batch AML pipeline that validates transaction files, flags suspicious activity, and loads alerts into PostgreSQL with resilient file handling.',
-    stack: ['PySpark', 'Pydantic', 'PostgreSQL'],
-    github: 'https://github.com/pranavjindal29/pyspark-financial-transaction-monitoring',
-  },
-  {
-    title: 'HarvestWatch',
-    category: 'ML + IoT',
-    description:
-      'Smart farming platform that combines plant-disease detection, mobile inference, and live field sensing so farmers can respond earlier in the field.',
-    stack: ['TensorFlow Lite', 'Android', 'ESP8266'],
-    github: 'https://github.com/pranavjindal29/HarvestWatch',
-  },
-  {
-    title: 'Customer Churn Prediction',
-    category: 'Retention Modeling',
-    description:
-      'Telco churn workflow centered on preprocessing, SMOTE balancing, and model comparison to improve minority-class prediction quality.',
-    stack: ['Scikit-learn', 'XGBoost', 'SMOTE'],
-    github: 'https://github.com/pranavjindal29/Customer_Churn_Prediction_using_ML',
-  },
-  {
-    title: 'PDF-IntelliExtract',
-    category: 'Document Intelligence',
-    description:
-      'PDF parsing workflow that extracts structured profile fields and auto-fills a React form through a Python plus Node service layer.',
-    stack: ['React', 'Node.js', 'Flask'],
-    github: 'https://github.com/pranavjindal29/PDF-IntelliExtract',
-    live: 'https://pdf-intelli-extract-frontend.vercel.app/',
-  },
-  {
-    title: 'Movie-recommendation-system',
-    category: 'Recommendation Engine',
-    description:
-      'Content-based recommender that uses TF-IDF and cosine similarity across movie metadata to surface similar titles from a selected film.',
-    stack: ['Python', 'TF-IDF', 'Cosine Similarity'],
-    github: 'https://github.com/pranavjindal29/movie-recommendation-system',
-  },
-];
+export const contact = {
+  title: 'Let’s build something meaningful.',
+  description: 'I’m open to Software Development, Backend, Systems Engineering, and related software opportunities.',
+  formTitle: 'Send a message',
+  formNote: 'Click my email address to copy it.',
+  submitLabel: 'Send Message',
+  successMessage: 'Thanks for reaching out. Your message has been sent.',
+  errorMessage: 'Unable to send right now. Please email me directly.',
+  links: [
+    { name: 'Email', action: 'copy-email', detail: profile.email },
+    { name: 'LinkedIn', href: profile.linkedin, detail: 'Connect on LinkedIn' },
+    { name: 'GitHub', href: profile.github, detail: 'Explore my code' },
+  ],
+};
 
 export const socialLinks = [
-  {
-    name: 'Mobile',
-    href: null,
-    value: profile.phone,
-  },
-  {
-    name: 'Mail',
-    href: null,
-    value: profile.email,
-  },
-  {
-    name: 'GitHub',
-    href: profile.github,
-    value: 'GitHub',
-  },
-  {
-    name: 'LinkedIn',
-    href: profile.linkedin,
-    value: 'LinkedIn',
-  },
-  {
-    name: 'LeetCode',
-    href: profile.leetcode,
-    value: 'LeetCode',
-  },
+  { name: 'GitHub', href: profile.github },
+  { name: 'LinkedIn', href: profile.linkedin },
+  { name: 'Email', action: 'copy-email' },
+  { name: 'LeetCode', href: profile.leetcode },
 ];

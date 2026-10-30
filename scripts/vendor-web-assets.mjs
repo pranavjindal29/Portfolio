@@ -1,88 +1,10 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 
-const projectRoot = new URL('..', import.meta.url);
 const fontsDir = new URL('../public/fonts/', import.meta.url);
-const iconifyDir = new URL('../src/data/iconify/', import.meta.url);
 
 const googleFontsCssUrl =
-  'https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=Manrope:wght@400;500;600;700;800&family=Sora:wght@500;600;700;800&display=swap';
-
-const iconCollections = {
-  logos: [
-    'python',
-    'java',
-    'postgresql',
-    'nodejs-icon',
-    'flask',
-    'docker-icon',
-    'tensorflow',
-    'aws',
-    'microsoft-azure',
-    'google-cloud',
-    'vercel-icon',
-    'netlify',
-    'cloudflare-icon',
-    'react',
-    'android-icon',
-    'tailwindcss-icon',
-    'git-icon',
-    'visual-studio-code',
-    'intellij-idea',
-    'raspberry-pi',
-  ],
-  'skill-icons': ['javascript', 'cpp', 'bash', 'linux-light', 'html', 'css'],
-  carbon: ['sql', 'chart-scatter', 'matrix', 'chart-bubble'],
-  mdi: [
-    'cube-outline',
-    'database-cog-outline',
-    'api',
-    'graph-outline',
-    'file-chart-outline',
-    'sigma',
-    'tune-vertical',
-    'check-decagram-outline',
-    'tune-variant',
-    'transit-connection-variant',
-    'database-sync-outline',
-    'chart-line-variant',
-    'camera-outline',
-    'brain',
-    'text-search-variant',
-    'compare-horizontal',
-    'star-box-multiple-outline',
-    'chart-scatter-plot-hexbin',
-    'chart-bell-curve-cumulative',
-    'camera-wireless-outline',
-    'image-filter-center-focus',
-    'target',
-    'history',
-    'percent-circle-outline',
-    'source-branch-sync',
-    'signal-5g',
-    'radio-tower',
-    'antenna',
-    'access-point-network',
-    'cellphone-wireless',
-    'lan-connect',
-    'router-network',
-    'swap-horizontal-bold',
-    'shield-lock-outline',
-    'server-network-outline',
-    'account-network-outline',
-    'connection',
-    'lan-pending',
-    'github',
-    'chip',
-    'vector-polygon',
-    'image-outline',
-    'map-outline',
-  ],
-  'simple-icons': ['pydantic', 'apachespark', 'oracle', 'nvidia'],
-  devicon: ['scikitlearn'],
-  ph: ['eye-bold'],
-  fluent: ['arrow-trending-lines-24-filled'],
-};
+  'https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&family=Manrope:wght@400;500;600;700;800&family=Sora:wght@500;600;700;800&display=swap';
 
 async function ensureDir(url) {
   await fs.mkdir(url, { recursive: true });
@@ -96,16 +18,6 @@ async function fetchText(url, init = {}) {
   }
 
   return response.text();
-}
-
-async function fetchJson(url) {
-  const response = await fetch(url);
-
-  if (!response.ok) {
-    throw new Error(`Failed to fetch ${url}: ${response.status} ${response.statusText}`);
-  }
-
-  return response.json();
 }
 
 async function downloadFile(url, destination) {
@@ -126,6 +38,11 @@ async function downloadFile(url, destination) {
 
 async function vendorFonts() {
   await ensureDir(fontsDir);
+  const licensesDir = new URL('licenses/', fontsDir);
+  await ensureDir(licensesDir);
+  await Promise.all(['manrope', 'sora', 'ibmplexmono'].map((family) =>
+    downloadFile(`https://raw.githubusercontent.com/google/fonts/main/ofl/${family}/OFL.txt`, new URL(`${family}-OFL.txt`, licensesDir))
+  ));
 
   const css = await fetchText(googleFontsCssUrl, {
     headers: {
@@ -147,28 +64,21 @@ async function vendorFonts() {
     )
   );
 
-  await fs.writeFile(new URL('google-fonts.css', fontsDir), rewrittenCss);
-}
-
-async function vendorIconCollections() {
-  await ensureDir(iconifyDir);
-
-  await Promise.all(
-    Object.entries(iconCollections).map(async ([prefix, icons]) => {
-      const url = `https://api.iconify.design/${prefix}.json?icons=${icons.join(',')}`;
-      const data = await fetchJson(url);
-      await fs.writeFile(
-        new URL(`${prefix}.json`, iconifyDir),
-        `${JSON.stringify(data, null, 2)}\n`
-      );
-    })
-  );
+  const faces = new Map();
+  for (const match of rewrittenCss.matchAll(/@font-face\s*\{[^}]+\}/g)) {
+    const block = match[0];
+    const family = block.match(/font-family: '([^']+)'/)[1];
+    const key = `${family}:${block.match(/src: ([^;]+)/)[1]}`;
+    if (!faces.has(key)) {
+      faces.set(key, block.replace(/font-weight: [^;]+;/, `font-weight: ${family === 'Manrope' ? '400 800' : family === 'Sora' ? '500 800' : '500'};`));
+    }
+  }
+  await fs.writeFile(new URL('google-fonts.css', fontsDir), [...faces.values()].join('\n') + '\n');
 }
 
 async function main() {
   await vendorFonts();
-  await vendorIconCollections();
-  console.log('Vendored fonts and Iconify collections.');
+  console.log('Vendored local fonts.');
 }
 
 main().catch((error) => {

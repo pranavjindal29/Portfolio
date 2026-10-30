@@ -1,20 +1,13 @@
 import Reveal from './Reveal';
 
-export default function SectionHeading({
-  eyebrow,
-  title,
-  description,
-  align = 'left',
-  className = '',
-  descriptionClassName = '',
-}) {
-  const alignment = align === 'center' ? 'text-center mx-auto' : 'text-left';
-
+export default function SectionHeading({ number, title, description, id }) {
   return (
-    <Reveal className={`max-w-4xl 2xl:max-w-5xl ${alignment} ${className}`.trim()}>
-      <span className="section-eyebrow">{eyebrow}</span>
-      <h2 className="section-title mt-4">{title}</h2>
-      {description ? <p className={`section-copy mt-4 ${descriptionClassName}`.trim()}>{description}</p> : null}
+    <Reveal className="section-heading">
+      <div className="flex items-baseline gap-4">
+        {number && <span className="section-number" aria-hidden="true">{number} /</span>}
+        <h2 id={id} className="section-title">{title}</h2>
+      </div>
+      {description && <p className="reading-copy mt-3 max-w-xl text-[var(--muted)]">{description}</p>}
     </Reveal>
   );
 }

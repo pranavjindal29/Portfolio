@@ -1,22 +1,32 @@
-import { motion, useReducedMotion } from 'framer-motion';
+import { useEffect, useRef } from 'react';
+import { listenToMediaQuery } from '../lib/mediaQuery';
 
-export default function Reveal({ children, className = '', delay = 0, y = 28 }) {
-  const prefersReducedMotion = useReducedMotion();
-
-  if (prefersReducedMotion) {
-    return <div className={className}>{children}</div>;
-  }
-
-  return (
-    <motion.div
-      className={className}
-      initial={{ opacity: 0, y: Math.min(y, 18) }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.08, margin: '0px 0px -12% 0px' }}
-      transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay }}
-      style={{ willChange: 'transform, opacity' }}
-    >
-      {children}
-    </motion.div>
-  );
+// Content is visible before JS runs. Animation never gates reading or interaction.
+export default function Reveal({ children, className = '', delay = 0 }) {
+  const ref = useRef(null);
+  useEffect(() => {
+    const element = ref.current;
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if (!element || reducedMotion.matches || !element.animate || typeof window.IntersectionObserver !== 'function') return undefined;
+    let animation;
+    const observer = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting) return;
+      if (!reducedMotion.matches) {
+        animation = element.animate(
+          [{ opacity: 0.7, transform: 'translateY(8px)' }, { opacity: 1, transform: 'translateY(0)' }],
+          { duration: 320, delay, easing: 'ease-out', fill: 'backwards' },
+        );
+      }
+      observer.disconnect();
+    }, { threshold: 0.08 });
+    const cancelForReducedMotion = () => { if (reducedMotion.matches) animation?.cancel(); };
+    const stopListening = listenToMediaQuery(reducedMotion, cancelForReducedMotion);
+    observer.observe(element);
+    return () => {
+      observer.disconnect();
+      animation?.cancel();
+      stopListening();
+    };
+  }, [delay]);
+  return <div ref={ref} className={className}>{children}</div>;
 }
